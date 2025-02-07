@@ -3,13 +3,21 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/client.dart';
 import 'package:recipe_app/core/utils/colors.dart';
+<<<<<<< HEAD
 import 'package:recipe_app/core/utils/presentation/widgets/recipe_elevated_button.dart';
+=======
+
+>>>>>>> 41bb9d6 (I added profile)
 import 'package:recipe_app/onboarding/data/repositories/onboarding_repository.dart';
 import 'package:recipe_app/onboarding/presentation/pages/onboarding_view.dart';
 import 'package:recipe_app/onboarding/presentation/pages/onboarding_view_model.dart';
 import 'package:recipe_app/profile/data/repositories/user_repository.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
+<<<<<<< HEAD
+=======
+import 'package:recipe_app/recipe_detail/data/repositories/category_detail_repository.dart';
+>>>>>>> 41bb9d6 (I added profile)
 
 void main() {
   runApp(RecipeApp());
@@ -31,7 +39,10 @@ GoRouter _router = GoRouter(
       builder: (context, state) {
         final userId = int.tryParse(state.pathParameters["userId"] ?? "7") ?? 7;
         return UserView(
+<<<<<<< HEAD
           viewModel: UserViewModel(repo: context.read(), userId: userId),
+=======
+>>>>>>> 41bb9d6 (I added profile)
           userId: userId,
         );
       },
@@ -52,9 +63,20 @@ class RecipeApp extends StatelessWidget {
         ),
         Provider(
           create: (context) => UserRepository(client: context.read()),
+<<<<<<< HEAD
         )
       ],
       child: MaterialApp.router(
+=======
+        ),
+        Provider(
+          create: (context) => CategoryDetailRepository(apiClient: context.read()),
+        ),
+
+      ],
+      child: MaterialApp.router(
+    debugShowCheckedModeBanner: false,
+>>>>>>> 41bb9d6 (I added profile)
         routerConfig: _router,
       ),
     );
