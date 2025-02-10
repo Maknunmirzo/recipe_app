@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 <<<<<<< HEAD
 import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
 
+import '../../../core/utils/colors.dart';
+
 class UserView extends StatelessWidget {
   const UserView({super.key, required this.viewModel, required this.userId});
 
