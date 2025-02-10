@@ -20,11 +20,7 @@ class UserModel {
       followingCount: json["followingCount"],
       followerCount: json["followerCount"],
       profilePhoto: json["profilePhoto"],
-<<<<<<< HEAD
-      username: json["profilePhoto"],
-=======
       username: json["username"],
->>>>>>> 41bb9d6 (I added profile)
       presentation: json["presentation"],
       fullName: json["fullName"],
     );

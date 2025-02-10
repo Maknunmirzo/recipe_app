@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
 
 import '../../../core/utils/colors.dart';
-
-class UserView extends StatelessWidget {
-  const UserView({super.key, required this.viewModel, required this.userId});
-
-  final UserViewModel viewModel;
-=======
+import '../../../recipe_detail/presentation/widgets/category_detail_item.dart';
+import '../widgets/user_view_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/profile/presentation/widgets/user_view_app_bar.dart';
@@ -18,29 +13,17 @@ import 'package:recipe_app/recipe_detail/presentation/widgets/category_detail_it
 class UserView extends StatelessWidget {
   const UserView({super.key, required this.userId});
 
->>>>>>> 41bb9d6 (I added profile)
   final int userId;
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(viewModel.user != null
-            ? viewModel.user!.fullName
-            : "Ism mavjud emas"),
-      ),
-      body: Placeholder(),
-    );
-  }
-}
-=======
     return ChangeNotifierProvider<UserViewModel>(
-      create: (context) => UserViewModel(
-        repo: context.read(),
-        userId: userId,
-        recipeRepo: context.read(),
-      ),
+      create: (context) =>
+          UserViewModel(
+            repo: context.read(),
+            userId: userId,
+            recipeRepo: context.read(),
+          ),
       child: UserViewContent(),
     );
   }
@@ -97,7 +80,6 @@ class UserViewContent extends StatelessWidget {
                     ),
                     Text(
                       "maknun is powerful",
-
                       style: TextStyle(
                         color: AppColors.redPinkMain,
                         fontFamily: "League Spartan",
@@ -115,4 +97,4 @@ class UserViewContent extends StatelessWidget {
     }
   }
 }
->>>>>>> 41bb9d6 (I added profile)
+
