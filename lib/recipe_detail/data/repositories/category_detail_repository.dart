@@ -12,7 +12,7 @@ class CategoryDetailRepository {
 
   List<CategoryDetailModel> recipes = [];
 
-  Future<List<CategoryDetailModel>> fetchRecipes(int categoryId) async {
+  Future<List<CategoryDetailModel>> fetchRecipes({required int categoryId}) async {
     var recipeData = await apiClient.fetchRecipes(categoryId);
     recipes = recipeData.map((e) => CategoryDetailModel.fromJson(e)).toList();
     return recipes;

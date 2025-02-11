@@ -25,7 +25,7 @@ class UserViewModel extends ChangeNotifier {
     loading = true;
     notifyListeners();
     user = await _repo.fetchUser(userId);
-    recipeModels = await _recipeRepo.fetchRecipes(1);
+    recipeModels = await _recipeRepo.fetchRecipes(categoryId: 1);
     loading = false;
     notifyListeners();
   }
