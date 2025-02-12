@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/profile/data/models/user_model.dart';
 import 'package:recipe_app/profile/data/repositories/user_repository.dart';
-import 'package:recipe_app/recipe_detail/data/models/category_detail_model.dart';
-import 'package:recipe_app/recipe_detail/data/repositories/category_detail_repository.dart';
+
+import '../../../category_detail/data/models/category_detail_model.dart';
+import '../../../category_detail/data/repositories/category_detail_repository.dart';
+import '../../data/repositories/recipes_by_user_repository.dart';
+
 
 class UserViewModel extends ChangeNotifier {
   final UserRepository _repo;
-  final CategoryDetailRepository _recipeRepo;
+  final RecipesByUserRepository _recipeRepo;
   final int userId;
   late UserModel user;
   late List<CategoryDetailModel> recipeModels;
@@ -15,7 +18,7 @@ class UserViewModel extends ChangeNotifier {
   UserViewModel(
       {required UserRepository repo,
       required this.userId,
-      required CategoryDetailRepository recipeRepo})
+      required RecipesByUserRepository recipeRepo})
       : _repo = repo,
         _recipeRepo = recipeRepo {
     load();
@@ -25,7 +28,7 @@ class UserViewModel extends ChangeNotifier {
     loading = true;
     notifyListeners();
     user = await _repo.fetchUser(userId);
-    recipeModels = await _recipeRepo.fetchRecipes(categoryId: 1);
+    recipeModels = await _recipeRepo.fetchRecipesByUserId(userId: userId);
     loading = false;
     notifyListeners();
   }

@@ -29,7 +29,7 @@ class ApiClient {
     return data;
   }
 
-  Future<List<dynamic>> fetchRecipes(int categoryId) async {
+  Future<List<dynamic>> fetchRecipesByCategoryId(int categoryId) async {
     var response = await dio.get("/recipes/list?Category=$categoryId");
     final List<dynamic> data = response.data;
     return data;
@@ -37,6 +37,12 @@ class ApiClient {
   
  Future<List<dynamic>> fetchCategories() async {
     var response=await dio.get("/categories/list");
+    List<dynamic> data=response.data;
+    return data;
+  }
+
+  Future<List<dynamic>> fetchRecipesByUserId(int userId) async {
+    var response=await dio.get("/recipes/list?UserId=$userId");
     List<dynamic> data=response.data;
     return data;
   }

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
 
+import '../../../category_detail/presentation/widgets/category_detail_item.dart';
 import '../../../core/utils/colors.dart';
-import '../../../recipe_detail/presentation/widgets/category_detail_item.dart';
+
 import '../widgets/user_view_app_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/core/utils/colors.dart';
-import 'package:recipe_app/profile/presentation/widgets/user_view_app_bar.dart';
-import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
-import 'package:recipe_app/recipe_detail/presentation/widgets/category_detail_item.dart';
+
+
 
 class UserView extends StatelessWidget {
   const UserView({super.key, required this.userId});

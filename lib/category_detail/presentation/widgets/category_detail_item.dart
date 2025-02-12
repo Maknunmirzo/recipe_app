@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_app/core/presentation/widgets/heart_item.dart';
 import 'package:recipe_app/core/utils/colors.dart';
-import 'package:recipe_app/recipe_detail/data/models/category_detail_model.dart';
+
+import '../../data/models/category_detail_model.dart';
+
 
 class CategoryDetailItem extends StatelessWidget {
   const CategoryDetailItem({super.key, required this.categoryDetailModel});

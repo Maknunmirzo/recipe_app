@@ -8,12 +8,14 @@ import 'package:recipe_app/onboarding/data/repositories/onboarding_repository.da
 class OnboardingViewModel extends ChangeNotifier {
   OnboardingViewModel(
       {required OnboardingRepository repo,
-      required CategoriesRepository cateRepo})
+      required CategoriesRepository cateRepo,
+      this.back = false})
       : _repo = repo,
         _cateRepo = cateRepo {
     load();
   }
 
+  bool back;
   final PageController controller = PageController();
 
   final OnboardingRepository _repo;
@@ -25,18 +27,12 @@ class OnboardingViewModel extends ChangeNotifier {
   Future<void> load() async {
     onboardings = await _repo.fetchOnboardingPages();
     categories = await _cateRepo.fetchCategories();
+    if (back) {
+      controller.jumpToPage(onboardings.length - 1);
+    }
     notifyListeners();
   }
 
-  void goToLastPage() {
-    if (controller.hasClients) {
-      controller.animateToPage(
-        onboardings.length - 1,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
 
 
   void pageChangedCallBack(int index, BuildContext context) {

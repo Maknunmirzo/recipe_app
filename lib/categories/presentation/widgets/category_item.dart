@@ -9,32 +9,37 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            model.image,
-            width: 158,
-            height: 144,
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: (){
+        context.go("/category/detail/${model.id}");
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              model.image,
+              width: 158,
+              height: 144,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        SizedBox(height: 6,),
-        Text(
-          model.title,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "Poppins",
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
+          SizedBox(height: 6,),
+          Text(
+            model.title,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Poppins",
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            maxLines: 1,
+            softWrap: true,
           ),
-          maxLines: 1,
-          softWrap: true,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -51,7 +56,7 @@ class CategoryMainItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        // context.go("categories");
+        context.go("/category/detail/${model.id}");
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

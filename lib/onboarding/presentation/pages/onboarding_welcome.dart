@@ -24,7 +24,7 @@ class OnboardingWelcome extends StatelessWidget {
               backgroundColor: AppColors.beigeColor,
               leading: GestureDetector(
                 onTap: () {
-                  viewModel.goToLastPage();
+                 context.go("/onboarding?back=true");
                 },
                 child: SizedBox(
                   width: 21,

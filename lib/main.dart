@@ -9,26 +9,32 @@ import 'package:recipe_app/onboarding/data/repositories/onboarding_repository.da
 import 'package:recipe_app/onboarding/presentation/pages/onboarding_view.dart';
 import 'package:recipe_app/onboarding/presentation/pages/onboarding_view_model.dart';
 import 'package:recipe_app/onboarding/presentation/pages/onboarding_welcome.dart';
+import 'package:recipe_app/profile/data/repositories/recipes_by_user_repository.dart';
 import 'package:recipe_app/profile/data/repositories/user_repository.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
-import 'package:recipe_app/recipe_detail/data/repositories/category_detail_repository.dart';
-import 'package:recipe_app/recipe_detail/presentation/manager/category_detail_view_model.dart';
-import 'package:recipe_app/recipe_detail/presentation/pages/category_detail_view.dart';
+
+import 'category_detail/data/repositories/category_detail_repository.dart';
+import 'category_detail/presentation/manager/category_detail_view_model.dart';
+import 'category_detail/presentation/pages/category_detail_view.dart';
+import 'core/utils/theme.dart';
 
 void main() {
   runApp(RecipeApp());
 }
 
 GoRouter _router = GoRouter(
-  initialLocation: "/onboarding",
+  initialLocation: "/user/:userId",
   routes: [
     GoRoute(
       path: "/onboarding",
-      builder: (context, state) => OnboardingView(
-        viewModel:
-            OnboardingViewModel(repo: context.read(), cateRepo: context.read()),
-      ),
+      builder: (context, state) {
+        bool back = bool.parse(state.uri.queryParameters["back"] ?? "false");
+        return OnboardingView(
+          viewModel: OnboardingViewModel(
+              repo: context.read(), cateRepo: context.read(), back: back),
+        );
+      },
     ),
     GoRoute(
       path: "/user/:userId",
@@ -56,14 +62,14 @@ GoRouter _router = GoRouter(
         path: "/category/detail/:categoryId",
         builder: (context, state) {
           final int categoryId =
-              int.tryParse(state.pathParameters["categoryId"] ?? "2") ?? 2;
+              int.tryParse(state.pathParameters["categoryId"] ?? "1") ?? 1;
           return CategoryDetailView(
+            categoryId: categoryId,
             viewModel: CategoryDetailViewModel(
               repo: context.read(),
               categoryId: categoryId,
               cateRepo: context.read(),
             ),
-            categoryId: categoryId,
           );
         })
   ],
@@ -81,13 +87,16 @@ class RecipeApp extends StatelessWidget {
             create: (context) => OnboardingRepository(client: context.read())),
         Provider(create: (context) => UserRepository(client: context.read())),
         Provider(
-            create: (context) => CategoryDetailRepository(
-                  apiClient: context.read(),
-                )),
+            create: (context) =>
+                CategoryDetailRepository(apiClient: context.read())),
         Provider(
-            create: (context) => CategoriesRepository(client: context.read()))
+            create: (context) => CategoriesRepository(client: context.read())),
+        Provider(
+            create: (context) =>
+                RecipesByUserRepository(apiClient: context.read()))
       ],
       child: MaterialApp.router(
+        theme: appThemeData,
         debugShowCheckedModeBanner: false,
         routerConfig: _router,
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/categories/data/models/category_model.dart';
 import 'package:recipe_app/categories/data/repositories/categories_repository.dart';
-import 'package:recipe_app/recipe_detail/data/models/category_detail_model.dart';
-import 'package:recipe_app/recipe_detail/data/repositories/category_detail_repository.dart';
+
+import '../../data/models/category_detail_model.dart';
+import '../../data/repositories/category_detail_repository.dart';
 
 class CategoryDetailViewModel extends ChangeNotifier {
   final CategoryDetailRepository _repo;
@@ -10,7 +11,8 @@ class CategoryDetailViewModel extends ChangeNotifier {
   final int categoryId;
 
   List<CategoryDetailModel> recipes = [];
-  List<CategoryModel> categories=[];
+  List<CategoryModel> categories = [];
+  CategoryModel? selected;
 
   CategoryDetailViewModel(
       {required CategoryDetailRepository repo,
@@ -19,12 +21,18 @@ class CategoryDetailViewModel extends ChangeNotifier {
       : _repo = repo,
         _cateRepo = cateRepo {
     load();
-    CategoryModel sett=categories[categoryId];
   }
 
   Future load() async {
     recipes = await _repo.fetchRecipes(categoryId: categoryId);
-    categories=await _cateRepo.fetchCategories();
+    categories = await _cateRepo.fetchCategories();
+    if (categories.isNotEmpty) {
+      selected = categories.firstWhere(
+        (category) => category.id == categoryId,
+        orElse: () => categories.first,
+      );
+    }
+
     notifyListeners();
   }
 }
