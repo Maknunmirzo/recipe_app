@@ -13,20 +13,27 @@ class AuthViewModel extends ChangeNotifier {
    String? _errorMessage;
    String? get errorMessage=>_errorMessage;
 
+    bool showObscureText=false;
    bool get hasError=> _errorMessage!=null;
 
 
    Future<bool> login() async{
      try{
        await _authRepo.login(login: loginController.text, password: passwordController.text);
-       notifyListeners();
        _errorMessage=null;
+       notifyListeners();
        return true;
      }on Exception catch(e){
-       notifyListeners();
        _errorMessage=e.toString();
+       notifyListeners();
        return false;
      }
 
+   }
+
+
+   void showPassword(){
+   showObscureText= !showObscureText;
+     notifyListeners();
    }
 }

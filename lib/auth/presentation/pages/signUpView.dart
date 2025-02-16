@@ -69,12 +69,18 @@ class SignUpView extends StatelessWidget {
                   ),
                 ),
                 PasswordTextForm(
+                 isShowPassword: true,
+                  suffixOnTap: () {},
                   controller: TextEditingController(),
+                  errorText: null,
                   label: "Password",
                 ),
                 PasswordTextForm(
+                  isShowPassword: true,
+                  suffixOnTap: () {},
                   controller: TextEditingController(),
                   label: "Confirm Password",
+                  errorText: null,
                 ),
               ],
             ),

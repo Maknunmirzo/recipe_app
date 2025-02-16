@@ -34,6 +34,7 @@ class AuthView extends StatelessWidget {
           padding: EdgeInsets.only(top: 152, bottom: 100),
           children: [
             Form(
+              key: vm.formKey,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -42,7 +43,7 @@ class AuthView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     AuthFormText(
-                      errorText: (vm.hasError) ? vm.errorMessage : "error yo'q",
+                      errorText: (vm.hasError) ? vm.errorMessage : null,
                       label: "Login",
                       controller: vm.loginController,
                       hintText: "login",
@@ -52,7 +53,12 @@ class AuthView extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     PasswordTextForm(
+                      isShowPassword: vm.showObscureText,
+                      suffixOnTap: () {
+                        vm.showPassword();
+                      },
                       controller: vm.passwordController,
+                      errorText: (vm.hasError)? vm.errorMessage!:null,
                       label: "Password",
                     )
                   ],

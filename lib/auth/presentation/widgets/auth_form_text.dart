@@ -46,7 +46,10 @@ class AuthFormText extends StatelessWidget {
                 height: 1),
             decoration: InputDecoration(
                 hintText: hintText,
-                errorStyle: TextStyle(fontSize: 15,color: Colors.red),
+                errorStyle: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).colorScheme.error,
+                ),
                 errorText: errorText,
                 border: OutlineInputBorder(
                     borderSide: BorderSide.none,
