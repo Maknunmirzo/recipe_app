@@ -10,6 +10,23 @@ class AuthViewModel extends ChangeNotifier {
   final TextEditingController passwordController=TextEditingController();
 
   final GlobalKey<FormState> formKey=GlobalKey<FormState>();
-   bool _isAuthenticated=false;
-   bool get isAuthenticated =>_isAuthenticated;
+   String? _errorMessage;
+   String? get errorMessage=>_errorMessage;
+
+   bool get hasError=> _errorMessage!=null;
+
+
+   Future<bool> login() async{
+     try{
+       await _authRepo.login(login: loginController.text, password: passwordController.text);
+       notifyListeners();
+       _errorMessage=null;
+       return true;
+     }on Exception catch(e){
+       notifyListeners();
+       _errorMessage=e.toString();
+       return false;
+     }
+
+   }
 }

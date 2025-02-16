@@ -6,16 +6,15 @@ class AuthRepository {
 
   final ApiClient client;
 
-  Future<bool> login(String login, String password) async {
-    var token = await client.login(login, password);
+  Future<void> login({required String login, required String password}) async {
+    final String token = await client.login(login:login, password:password);
     await SecureStorage.deleteCredentials();
+    await SecureStorage.saveCredentials(login: login, password: password);
     await SecureStorage.deleteToken();
-    await SecureStorage.saveCredentials(login, password);
-    await SecureStorage.saveToken(token);
-    return true;
+    await SecureStorage.saveToken(token: token);
   }
 
-  Future<void> logout() async {
+  Future logout()async{
     await SecureStorage.deleteToken();
     await SecureStorage.deleteCredentials();
   }

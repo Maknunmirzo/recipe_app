@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/auth/data/repositories/auth_repository.dart';
+import 'package:recipe_app/auth/presentation/manager/auth_view_model.dart';
+import 'package:recipe_app/auth/presentation/pages/auth_page.dart';
 import 'package:recipe_app/categories/data/repositories/categories_repository.dart';
 import 'package:recipe_app/categories/presentation/pages/categories_view.dart';
 import 'package:recipe_app/categories/presentation/pages/categories_view_model.dart';
@@ -14,6 +17,7 @@ import 'package:recipe_app/profile/data/repositories/user_repository.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view.dart';
 import 'package:recipe_app/profile/presentation/pages/user_view_model.dart';
 
+import 'auth/presentation/pages/signUpView.dart';
 import 'category_detail/data/repositories/category_detail_repository.dart';
 import 'category_detail/presentation/manager/category_detail_view_model.dart';
 import 'category_detail/presentation/pages/category_detail_view.dart';
@@ -24,7 +28,7 @@ void main() {
 }
 
 GoRouter _router = GoRouter(
-  initialLocation: "/user/:userId",
+  initialLocation: "/auth",
   routes: [
     GoRoute(
       path: "/onboarding",
@@ -53,11 +57,12 @@ GoRouter _router = GoRouter(
                   repo: context.read(), cateRepo: context.read()),
             )),
     GoRoute(
-        path: "/categories",
-        builder: (context, state) => CategoriesView(
-                viewModel: CategoriesViewModel(
-              repo: context.read(),
-            ))),
+      path: "/categories",
+      builder: (context, state) => CategoriesView(
+          viewModel: CategoriesViewModel(
+        repo: context.read(),
+      )),
+    ),
     GoRoute(
         path: "/category/detail/:categoryId",
         builder: (context, state) {
@@ -66,12 +71,22 @@ GoRouter _router = GoRouter(
           return CategoryDetailView(
             categoryId: categoryId,
             viewModel: CategoryDetailViewModel(
-              repo: context.read(),
-              categoryId: categoryId,
-              cateRepo: context.read(),
-            ),
+                repo: context.read(),
+                categoryId: categoryId,
+                cateRepo: context.read()),
           );
-        })
+        }),
+    GoRoute(
+      path: "/auth",
+      name: "/auth",
+      builder: (context, state) => AuthView(
+        vm: AuthViewModel(authRepo: context.read()),
+      ),
+    ),
+    GoRoute(
+      path: "/signUp",
+      builder: (context, state,) => SignUpView(),
+    )
   ],
 );
 
@@ -93,7 +108,8 @@ class RecipeApp extends StatelessWidget {
             create: (context) => CategoriesRepository(client: context.read())),
         Provider(
             create: (context) =>
-                RecipesByUserRepository(apiClient: context.read()))
+                RecipesByUserRepository(apiClient: context.read())),
+        Provider(create: (context) => AuthRepository(client: context.read()))
       ],
       child: MaterialApp.router(
         theme: appThemeData,
