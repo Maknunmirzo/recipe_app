@@ -42,7 +42,7 @@ class AuthView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     AuthFormText(
-                      errorText: (vm.hasError) ? vm.errorMessage : null,
+                      errorText: (vm.hasError) ? vm.errorMessage : "error yo'q",
                       label: "Login",
                       controller: vm.loginController,
                       hintText: "login",
@@ -69,7 +69,7 @@ class AuthView extends StatelessWidget {
                 text: "Login",
                 callback: () async {
                   if (vm.formKey.currentState!.validate()) {
-                    if (!await vm.login() && context.mounted) {
+                    if (await vm.login() && context.mounted) {
                       context.go("/categories");
                     }
                   }
