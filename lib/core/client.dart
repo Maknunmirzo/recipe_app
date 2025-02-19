@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:recipe_app/core/Exceptions/auth_exception.dart';
+import 'package:recipe_app/core/secure_storage.dart';
 
 class ApiClient {
   Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.35.182:8888/api/v1"));
@@ -37,11 +38,42 @@ class ApiClient {
     return data;
   }
 
+  // Future<List<dynamic>> fetchCategories() async {
+  //   var response = await dio.get("/categories/list");
+  //   List<dynamic> data = response.data;
+  //   return data;
+  // }
+
   Future<List<dynamic>> fetchCategories() async {
-    var response = await dio.get("/categories/list");
-    List<dynamic> data = response.data;
-    return data;
+    var response = await dio.get('/categories/list');
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = response.data;
+      return data;
+    } else if (response.statusCode == 401) {
+      final credentials = await SecureStorage.getCredentials();
+      if (credentials['login'] == null || credentials['password'] == null) {
+        navigatorKey.currentContext!.go("/login");
+      }
+      final jwt = await login(credentials['login']!, credentials['password']!);
+      await SecureStorage.deleteToken();
+      await SecureStorage.saveToken(jwt);
+
+      var retryResponse = await dio.get('/categories/list');
+      if (retryResponse.statusCode == 200) {
+        List<dynamic> data = retryResponse.data;
+        return data;
+      } else {
+        navigatorKey.currentContext!.go(Routes.login);
+      }
+    }
+
+    throw Exception("Failed to load categories");
   }
+
+
+
+
 
   Future<List<dynamic>> fetchRecipesByUserId(int userId) async {
     var response = await dio.get("/recipes/list?UserId=$userId");

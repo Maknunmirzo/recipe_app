@@ -130,7 +130,7 @@ class SignUpView extends StatelessWidget {
                         child: Container(
                           width: 250,
                           height: 286,
-                          padding: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 45,vertical: 20),
                           decoration: BoxDecoration(),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
