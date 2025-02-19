@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/auth/presentation/widgets/auth_form_text.dart';
 import 'package:recipe_app/auth/presentation/widgets/password_text_form.dart';
@@ -69,7 +70,7 @@ class SignUpView extends StatelessWidget {
                   ),
                 ),
                 PasswordTextForm(
-                 isShowPassword: true,
+                  isShowPassword: true,
                   suffixOnTap: () {},
                   controller: TextEditingController(),
                   errorText: null,
@@ -112,7 +113,85 @@ class SignUpView extends StatelessWidget {
           Center(
             child: RecipeElevatedButton(
               text: "Sign Up",
-              callback: () {},
+              callback: () {
+                showDialog(
+                  context: context,
+                  useSafeArea: true,
+                  barrierColor: Colors.black54,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return Center(
+                      child: Dialog(
+                        backgroundColor: Colors.white,
+                        elevation: 10,
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40)),
+                        child: Container(
+                          width: 250,
+                          height: 286,
+                          padding: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+                          decoration: BoxDecoration(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 133,
+                                child: Text(
+                                  "Sign up Succesful!",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Container(
+                                width: 83,
+                                height: 83,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(42),
+                                  color: AppColors.pink,
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    "assets/svg/bottom/profile.svg",
+                                    width: 30,
+                                    height: 42,
+                                    colorFilter: ColorFilter.mode(
+                                      AppColors.redPinkMain,
+                                      BlendMode.srcIn,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "Lorem ipsum dolor sit amet pretium cras"
+                                    " id dui pellentesque ornare."
+                                    " Quisque malesuada.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: "Poppins",
+                                      color: Colors.black,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
               size: Size(194, 45),
               backgroundColor: AppColors.redPinkMain,
               foregroundColor: Colors.white,
