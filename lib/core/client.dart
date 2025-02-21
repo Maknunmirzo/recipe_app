@@ -4,20 +4,38 @@ import 'package:dio/dio.dart';
 import 'package:recipe_app/core/Exceptions/auth_exception.dart';
 import 'package:recipe_app/core/secure_storage.dart';
 
-class ApiClient {
-  Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.35.182:8888/api/v1"));
+import '../auth/data/models/sign_up_user_model.dart';
 
-  Future<String> login({required String login, required String password}) async {
+class ApiClient {
+  Dio dio = Dio(BaseOptions(baseUrl: "http://10.10.0.105:8888/api/v1"));
+
+  Future<String> login(
+      {required String login, required String password}) async {
     var response = await dio.post(
       "/auth/login",
       data: {"login": login, "password": password},
     );
-    if(response.statusCode==200){
-      var data=Map<String,String>.from(response.data);
+    if (response.statusCode == 200) {
+      var data = Map<String, String>.from(response.data);
       return data["accessToken"]!.toString();
-    }
-    else{
+    } else {
       throw AuthException();
+    }
+  }
+
+  Future<Map<String, dynamic>> signUp({required SignUpUserModel user}) async {
+    var responce = await dio.post("/auth/register", data: user.toJson());
+    if (responce.statusCode == 201) {
+      String token = responce.data["accessToken"];
+      return {
+        "result": true,
+        "token": token,
+      };
+    } else {
+      return {
+        "result": true,
+        "token": null,
+      };
     }
   }
 
@@ -38,42 +56,11 @@ class ApiClient {
     return data;
   }
 
-  // Future<List<dynamic>> fetchCategories() async {
-  //   var response = await dio.get("/categories/list");
-  //   List<dynamic> data = response.data;
-  //   return data;
-  // }
-
   Future<List<dynamic>> fetchCategories() async {
-    var response = await dio.get('/categories/list');
-
-    if (response.statusCode == 200) {
-      List<dynamic> data = response.data;
-      return data;
-    } else if (response.statusCode == 401) {
-      final credentials = await SecureStorage.getCredentials();
-      if (credentials['login'] == null || credentials['password'] == null) {
-        navigatorKey.currentContext!.go("/login");
-      }
-      final jwt = await login(credentials['login']!, credentials['password']!);
-      await SecureStorage.deleteToken();
-      await SecureStorage.saveToken(jwt);
-
-      var retryResponse = await dio.get('/categories/list');
-      if (retryResponse.statusCode == 200) {
-        List<dynamic> data = retryResponse.data;
-        return data;
-      } else {
-        navigatorKey.currentContext!.go(Routes.login);
-      }
-    }
-
-    throw Exception("Failed to load categories");
+    var response = await dio.get("/categories/list");
+    List<dynamic> data = response.data;
+    return data;
   }
-
-
-
-
 
   Future<List<dynamic>> fetchRecipesByUserId(int userId) async {
     var response = await dio.get("/recipes/list?UserId=$userId");

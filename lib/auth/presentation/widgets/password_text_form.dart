@@ -9,6 +9,7 @@ class PasswordTextForm extends StatelessWidget {
     required this.label,
     required this.errorText,
     required this.suffixOnTap, required this.isShowPassword,
+    this.validator,
   });
 
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class PasswordTextForm extends StatelessWidget {
   final String? errorText;
   final bool isShowPassword;
   final VoidCallback suffixOnTap;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class PasswordTextForm extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 10
         ),
         SizedBox(
             width: double.infinity,
@@ -41,7 +43,7 @@ class PasswordTextForm extends StatelessWidget {
               textAlignVertical: TextAlignVertical.top,
               cursorHeight: 20,
               style: TextStyle(
-                  color: AppColors.redPinkMain,
+                  color: AppColors.beigeColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   height: 1),
@@ -74,14 +76,7 @@ class PasswordTextForm extends StatelessWidget {
                   fillColor: AppColors.pink),
               obscureText: isShowPassword,
               obscuringCharacter: "●",
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
-                } else if (value.length < 6) {
-                  return 'Password must be at least 6 characters';
-                }
-                return null;
-              },
+              validator: validator,
             )),
       ],
     );

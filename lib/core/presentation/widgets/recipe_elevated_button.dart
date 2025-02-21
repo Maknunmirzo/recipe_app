@@ -31,9 +31,11 @@ class RecipeElevatedButton extends StatelessWidget {
       ),
       onPressed: callback,
       child: Text(
+        textAlign: TextAlign.center,
         text,
         style: TextStyle(
           fontSize: fontSize,
+          height: 1,
           fontWeight: FontWeight.w600,
           fontFamily: "Poppins"
         ),

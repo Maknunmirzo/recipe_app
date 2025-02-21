@@ -6,7 +6,10 @@ import 'package:recipe_app/auth/presentation/widgets/auth_social.dart';
 
 import 'package:recipe_app/auth/presentation/widgets/password_text_form.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_elevated_button.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
+
+import '../../../core/l10n/app_localization.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({super.key, required this.vm});
@@ -21,7 +24,7 @@ class AuthView extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 40,
           title: Text(
-            "Login",
+            AppLocalizations.of(context)!.login,
             style: TextStyle(
               color: AppColors.redPinkMain,
               fontSize: 20,
@@ -44,9 +47,9 @@ class AuthView extends StatelessWidget {
                   children: [
                     AuthFormText(
                       errorText: (vm.hasError) ? vm.errorMessage : null,
-                      label: "Login",
+                      label: AppLocalizations.of(context)!.login,
                       controller: vm.loginController,
-                      hintText: "login",
+                      hintText: AppLocalizations.of(context)!.loginHintText,
                       validator: (jnj) {
                         return null;
                       },
@@ -59,24 +62,20 @@ class AuthView extends StatelessWidget {
                       },
                       controller: vm.passwordController,
                       errorText: (vm.hasError)? vm.errorMessage!:null,
-                      label: "Password",
+                      label: AppLocalizations.of(context)!.password,
                     )
                   ],
                 ),
               ),
             ),
             SizedBox(height: 50),
-            // Text(
-            //   (vm.hasError) ? vm.errorMessage! : "erroer yo'q",
-            //   style: TextStyle(color: Colors.red),
-            // ),
             Center(
               child: RecipeElevatedButton(
-                text: "Login",
+                text:AppLocalizations.of(context)!.login,
                 callback: () async {
                   if (vm.formKey.currentState!.validate()) {
                     if (await vm.login() && context.mounted) {
-                      context.go("/categories");
+                      context.go(Routes.categories);
                     }
                   }
                 },
@@ -86,9 +85,9 @@ class AuthView extends StatelessWidget {
             SizedBox(height: 27),
             Center(
               child: RecipeElevatedButton(
-                text: "Sign Up",
+                text: AppLocalizations.of(context)!.signUp,
                 callback: () {
-                  context.go("/SignUp");
+                  context.go(Routes.signUp);
                 },
                 size: Size(207, 45),
               ),
@@ -96,7 +95,7 @@ class AuthView extends StatelessWidget {
             SizedBox(height: 65),
             Center(
               child: Text(
-                "Forgot Password?",
+                AppLocalizations.of(context)!.forgotPassword,
                 style: TextStyle(
                   color: Color(0xffFFFDF9),
                   fontSize: 15,
@@ -108,7 +107,7 @@ class AuthView extends StatelessWidget {
             SizedBox(height: 40),
             Center(
               child: Text(
-                "or sign up with",
+                AppLocalizations.of(context)!.orSign,
                 style: TextStyle(
                   color: Color(0xffFFFDF9),
                   fontSize: 15,
@@ -135,11 +134,11 @@ class AuthView extends StatelessWidget {
             SizedBox(height: 55),
             GestureDetector(
               onTap:  () {
-                context.go("/signUp");
+                context.go(Routes.signUp);
               },
               child: Center(
                 child: Text(
-                  "Don’t have an account? Sign Up",
+                  AppLocalizations.of(context)!.dontAccount,
                   style: TextStyle(
                     color: Color(0xffFFFDF9),
                     fontSize: 15,

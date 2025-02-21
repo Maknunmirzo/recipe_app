@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_elevated_button.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/onboarding/presentation/pages/onboarding_view_model.dart';
 import 'package:recipe_app/onboarding/presentation/widgets/welcome_item.dart';
@@ -24,7 +25,7 @@ class OnboardingWelcome extends StatelessWidget {
               backgroundColor: AppColors.beigeColor,
               leading: GestureDetector(
                 onTap: () {
-                 context.go("/onboarding?back=true");
+                 context.go("${Routes.onboarding}?back=true");
                 },
                 child: SizedBox(
                   width: 21,
