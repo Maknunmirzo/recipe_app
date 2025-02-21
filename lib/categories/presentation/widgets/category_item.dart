@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/categories/data/models/category_model.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({super.key, required this.model});
@@ -11,7 +12,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        context.go("/category/detail/${model.id}");
+        context.go(Routes.categoryDetailBuilder(model.id));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +57,7 @@ class CategoryMainItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        context.go("/category/detail/${model.id}");
+        context.go(Routes.categoryDetailBuilder(model.id));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

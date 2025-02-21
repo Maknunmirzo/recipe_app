@@ -6,6 +6,7 @@ import 'package:recipe_app/auth/presentation/widgets/auth_social.dart';
 
 import 'package:recipe_app/auth/presentation/widgets/password_text_form.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_elevated_button.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 
 class AuthView extends StatelessWidget {
@@ -66,17 +67,13 @@ class AuthView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 50),
-            // Text(
-            //   (vm.hasError) ? vm.errorMessage! : "erroer yo'q",
-            //   style: TextStyle(color: Colors.red),
-            // ),
             Center(
               child: RecipeElevatedButton(
                 text: "Login",
                 callback: () async {
                   if (vm.formKey.currentState!.validate()) {
                     if (await vm.login() && context.mounted) {
-                      context.go("/categories");
+                      context.go(Routes.categories);
                     }
                   }
                 },
@@ -88,7 +85,7 @@ class AuthView extends StatelessWidget {
               child: RecipeElevatedButton(
                 text: "Sign Up",
                 callback: () {
-                  context.go("/SignUp");
+                  context.go(Routes.signUp);
                 },
                 size: Size(207, 45),
               ),
@@ -135,7 +132,7 @@ class AuthView extends StatelessWidget {
             SizedBox(height: 55),
             GestureDetector(
               onTap:  () {
-                context.go("/signUp");
+                context.go(Routes.signUp);
               },
               child: Center(
                 child: Text(

@@ -5,6 +5,7 @@ import 'package:recipe_app/categories/data/models/category_model.dart';
 import 'package:recipe_app/categories/presentation/pages/categories_view_model.dart';
 import 'package:recipe_app/core/presentation/widgets/app_bar_action.dart';
 
+import '../../../core/routing/routes.dart';
 import '../../../core/utils/colors.dart';
 import '../manager/category_detail_view_model.dart';
 
@@ -26,7 +27,7 @@ class CategoryDetailAppBar extends StatelessWidget
         backgroundColor: AppColors.beigeColor,
         leading: GestureDetector(
           onTap: () {
-            context.go("/categories");
+            context.go(Routes.categories);
           },
           child: SizedBox(
             width: 21,
@@ -86,7 +87,7 @@ class CategoryDetailAppBarBottom extends StatelessWidget
         itemCount: categories.length,
         itemBuilder: (context, index) => GestureDetector(
           onTap: (){
-            context.go("/category/detail/${categories[index].id}");
+            context.go(Routes.categoryDetailBuilder(categories[index].id));
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 9),

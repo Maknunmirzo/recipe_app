@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/categories/data/models/category_model.dart';
 import 'package:recipe_app/categories/data/repositories/categories_repository.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/onboarding/data/models/onboarding_model.dart';
 import 'package:recipe_app/onboarding/data/repositories/onboarding_repository.dart';
 
@@ -37,7 +38,7 @@ class OnboardingViewModel extends ChangeNotifier {
 
   void pageChangedCallBack(int index, BuildContext context) {
     if (index == onboardings.length) {
-      context.go('/welcome');
+      context.go(Routes.welcome);
     }
   }
 }
