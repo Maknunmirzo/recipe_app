@@ -1,23 +1,29 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/auth/presentation/widgets/for_learn_date.dart';
-import 'package:recipe_app/core/routing/routes.dart';
-import '../../auth/presentation/manager/auth_view_model.dart';
-import '../../auth/presentation/pages/auth_page.dart';
-import '../../auth/presentation/pages/signUpView.dart';
-import '../../categories/presentation/pages/categories_view.dart';
-import '../../categories/presentation/pages/categories_view_model.dart';
-import '../../category_detail/presentation/manager/category_detail_view_model.dart';
-import '../../category_detail/presentation/pages/category_detail_view.dart';
-import '../../onboarding/presentation/pages/onboarding_view.dart';
-import '../../onboarding/presentation/pages/onboarding_view_model.dart';
-import '../../onboarding/presentation/pages/onboarding_welcome.dart';
-import '../../profile/presentation/pages/user_view.dart';
+import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
+import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view.dart';
+
+import '../../features/auth/presentation/manager/auth_view_model.dart';
+import '../../features/auth/presentation/pages/auth_page.dart';
+import '../../features/auth/presentation/pages/signUpView.dart';
+import '../../features/auth/presentation/widgets/for_learn_date.dart';
+import '../../features/categories/presentation/manager/categories_view_model.dart';
+import '../../features/categories/presentation/pages/categories_view.dart';
+import '../../features/category_detail/presentation/manager/category_detail_view_model.dart';
+import '../../features/category_detail/presentation/pages/category_detail_view.dart';
+import '../../features/onboarding/presentation/manager/onboarding_view_model.dart';
+import '../../features/onboarding/presentation/pages/onboarding_view.dart';
+import '../../features/onboarding/presentation/pages/onboarding_welcome.dart';
+import '../../features/profile/presentation/pages/chef_profile_view.dart';
+import 'routes.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: Routes.signUp,
+  initialLocation: Routes.categories,
   routes: [
-    GoRoute(path: "/date",builder: (context, state) => ForLearnDate(),),
+    GoRoute(
+      path: "/date",
+      builder: (context, state) => ForLearnDate(),
+    ),
     GoRoute(
       path: Routes.onboarding,
       builder: (context, state) {
@@ -29,13 +35,13 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: Routes.userProfile,
+      path: Routes.chefProfile,
       builder: (context, state) {
         final userId = int.tryParse(
               state.pathParameters["userId"] ?? "2",
             ) ??
             2;
-        return UserView(userId: userId);
+        return ChefProfileView(userId: userId);
       },
     ),
     GoRoute(
@@ -78,6 +84,17 @@ final GoRouter router = GoRouter(
         state,
       ) =>
           SignUpView(),
-    )
+    ),
+    GoRoute(
+      path: Routes.recipe,
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => RecipeViewModel(
+          repo: context.read(),
+          recipeId: int.parse(state.pathParameters["recipeId"]!),
+        ),
+        child: RecipeView(
+        ),
+      ),
+    ),
   ],
 );

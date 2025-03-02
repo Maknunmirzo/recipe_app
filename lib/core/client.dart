@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:recipe_app/core/Exceptions/auth_exception.dart';
 import 'package:recipe_app/core/secure_storage.dart';
+import 'package:recipe_app/features/auth/data/models/sign_up_user_model.dart';
 
-import '../auth/data/models/sign_up_user_model.dart';
+
 
 class ApiClient {
-  Dio dio = Dio(BaseOptions(baseUrl: "http://10.10.0.105:8888/api/v1"));
+  Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.30.182:8888/api/v1"));
 
   Future<String> login(
       {required String login, required String password}) async {
@@ -67,6 +68,9 @@ class ApiClient {
     List<dynamic> data = response.data;
     return data;
   }
-
+Future<dynamic> fetchRecipeById(int recipeId) async{
+    var response=await dio.get("/recipes/detail/$recipeId");
+    return response.data;
+}
 
 }
