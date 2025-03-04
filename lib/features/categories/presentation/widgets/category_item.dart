@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/features/categories/data/models/category_model.dart';
@@ -22,8 +23,8 @@ class CategoryItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
               model.image,
-              width: 158,
-              height: 144,
+              width: 158.w,
+              height: 144.h,
               fit: BoxFit.cover,
             ),
           ),
@@ -79,7 +80,7 @@ class CategoryMainItem extends StatelessWidget {
             child: Image.network(
               model.image,
               width: double.infinity,
-              height: 149,
+              height: 149.h,
               fit: BoxFit.cover,
             ),
           ),

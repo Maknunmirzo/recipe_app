@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_bar.dart';
 
 import 'package:recipe_app/core/utils/colors.dart';
@@ -25,7 +26,7 @@ class CategoriesView extends StatelessWidget {
                   : ListView(
                       children: [
                         Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: CategoryMainItem(
                                 model: viewModel.mainCategory!)),
                         SizedBox(

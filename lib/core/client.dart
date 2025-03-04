@@ -8,7 +8,7 @@ import 'package:recipe_app/features/auth/data/models/sign_up_user_model.dart';
 
 
 class ApiClient {
-  Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.30.182:8888/api/v1"));
+  Dio dio = Dio(BaseOptions(baseUrl: "http://10.10.2.49:8888/api/v1"));
 
   Future<String> login(
       {required String login, required String password}) async {

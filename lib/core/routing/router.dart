@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
+import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_video_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view.dart';
+import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view_video.dart';
 
 import '../../features/auth/presentation/manager/auth_view_model.dart';
 import '../../features/auth/presentation/pages/auth_page.dart';
@@ -18,7 +20,7 @@ import '../../features/profile/presentation/pages/chef_profile_view.dart';
 import 'routes.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: Routes.categories,
+  initialLocation: Routes.recipe,
   routes: [
     GoRoute(
       path: "/date",
@@ -90,10 +92,9 @@ final GoRouter router = GoRouter(
       builder: (context, state) => ChangeNotifierProvider(
         create: (context) => RecipeViewModel(
           repo: context.read(),
-          recipeId: int.parse(state.pathParameters["recipeId"]!),
+          recipeId: 1,
         ),
-        child: RecipeView(
-        ),
+        child: RecipeView(),
       ),
     ),
   ],

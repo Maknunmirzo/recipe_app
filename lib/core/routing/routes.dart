@@ -12,4 +12,5 @@ class Routes{
   static const recipe="/recipe/:recipeId";
   static String recipeBuilder(int id,[String? title])=>"/recipe/$id";
 
+
 }

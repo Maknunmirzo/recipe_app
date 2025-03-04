@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
+import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view_video.dart';
+
+import '../manager/recipe_view_video_view_model.dart';
 
 class RecipeImage extends StatelessWidget {
   const RecipeImage({super.key});
@@ -35,18 +38,32 @@ class RecipeImage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Container(
-                width: 74,
-                height: 74,
-                decoration: BoxDecoration(
-                    color: AppColors.redPinkMain,
-                    borderRadius: BorderRadius.circular(32)),
-                child: Center(
-                  child: SvgPicture.asset(
-                    "assets/svg/play.svg",
-                    fit: BoxFit.cover,
-                    width: 30,
-                    height: 40,
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context,) => ChangeNotifierProvider(
+                        create: (context) => RecipeViewVideoViewModel(
+                          videoUrl:vm.recipe.videoRecipe,
+                          title:vm.recipe.title
+                        ),
+                        child: RecipeViewVideo(),
+                      ),
+                    ),
+                  ),
+                child: Container(
+                  width: 74,
+                  height: 74,
+                  decoration: BoxDecoration(
+                      color: AppColors.redPinkMain,
+                      borderRadius: BorderRadius.circular(32)),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      "assets/svg/play.svg",
+                      fit: BoxFit.cover,
+                      width: 30,
+                      height: 40,
+                    ),
                   ),
                 ),
               )
@@ -113,7 +130,7 @@ class RecipeImage extends StatelessWidget {
                         Text(
                           "${vm.recipe.time}",
                           style: TextStyle(
-                            color:Colors.white,
+                            color: Colors.white,
                             fontFamily: "Poppins",
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
