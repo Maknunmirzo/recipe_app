@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class RecipeViewVideoViewModel extends ChangeNotifier {
-  final String videoUrl,title;
+  final String videoUrl, title;
 
-  RecipeViewVideoViewModel({required this.videoUrl,required this.title}) {
+  RecipeViewVideoViewModel({required this.videoUrl, required this.title}) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     controller = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
@@ -15,7 +15,7 @@ class RecipeViewVideoViewModel extends ChangeNotifier {
       controller.play();
       notifyListeners();
     });
-  timer= Timer.periodic(Duration(seconds: 1), (timer){
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
       notifyListeners();
     });
   }
@@ -32,21 +32,19 @@ class RecipeViewVideoViewModel extends ChangeNotifier {
   late final Timer timer;
 
   bool _isView = true;
-  final double _volumeValue = 1;
+  double volumeValue = 1;
 
   bool get isView => _isView;
 
   set isView(bool value) {
-    _isView = !_isView;
+    _isView = value;
     notifyListeners();
   }
 
-  changeVolume({required bool isUp}) {
-    if (isUp) {
-      controller.setVolume(_volumeValue + 0.1);
-    } else {
-      controller.setVolume(_volumeValue - 0.1);
-    }
+  changeVolume({required double value}) {
+    volumeValue = value;
+    print(volumeValue);
+    controller.setVolume(value);
     notifyListeners();
   }
 
@@ -72,19 +70,16 @@ class RecipeViewVideoViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String allVideoTime() {
-    var time = controller.value.duration;
-    int hours = time.inHours;
-    int minutes = time.inMinutes ~/ 60 % 60;
-    int seconds = time.inSeconds % 60;
-    return "$hours:$minutes:$seconds";
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    return "${twoDigits(duration.inHours)}:${twoDigits(duration.inMinutes % 60)}:${twoDigits(duration.inSeconds % 60)}";
   }
 
-  Future<String> nowVideoTime() async {
-    var time = controller.value.position;
-    int hours = time.inHours;
-    int minutes = time.inMinutes ~/ 60 % 60;
-    int seconds = time.inSeconds % 60;
-    return "$hours:$minutes:$seconds";
+  String allVideoTime() {
+    return formatDuration(controller.value.duration);
+  }
+
+  String nowVideoTime() {
+    return formatDuration(controller.value.position);
   }
 }

@@ -45,6 +45,7 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^5.9.3
   video_player: ^2.9.3
+  syncfusion_flutter_sliders: ^28.2.9
 
 dev_dependencies:
   flutter_test:
