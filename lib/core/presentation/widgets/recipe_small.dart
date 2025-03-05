@@ -6,16 +6,16 @@ import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/features/category_detail/data/models/recipe_small_model.dart';
 
-class CategoryDetailItem extends StatelessWidget {
-  const CategoryDetailItem({super.key, required this.categoryDetailModel});
+class RecipeSmall extends StatelessWidget {
+  const RecipeSmall({super.key, required this.recipeSmallModel});
 
-  final RecipeSmallModel categoryDetailModel;
+  final RecipeSmallModel recipeSmallModel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go(Routes.recipeBuilder(categoryDetailModel.id,
+        context.go(Routes.recipeBuilder(recipeSmallModel.id,
         ));
       },
       child: Center(
@@ -44,7 +44,7 @@ class CategoryDetailItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      categoryDetailModel.title,
+                      recipeSmallModel.title,
                       style: TextStyle(
                         color: Color(0xff3E2823),
                         fontFamily: "Poppins",
@@ -55,7 +55,7 @@ class CategoryDetailItem extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Text(
-                      categoryDetailModel.description,
+                      recipeSmallModel.description,
                       style: TextStyle(
                           color: Color(0xff3E2823),
                           fontFamily: "League Spartan",
@@ -71,7 +71,7 @@ class CategoryDetailItem extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "${categoryDetailModel.rating}",
+                              "${recipeSmallModel.rating}",
                               style: TextStyle(
                                 color: AppColors.pinkSub,
                                 fontFamily: "Poppins",
@@ -102,7 +102,7 @@ class CategoryDetailItem extends StatelessWidget {
                               width: 3,
                             ),
                             Text(
-                              "${categoryDetailModel.timeRequired}min",
+                              "${recipeSmallModel.timeRequired}min",
                               style: TextStyle(
                                 color: AppColors.pinkSub,
                                 fontFamily: "Poppins",
@@ -121,7 +121,7 @@ class CategoryDetailItem extends StatelessWidget {
             ClipRRect(
                 borderRadius: BorderRadius.circular(14),
                 child: Image.network(
-                  categoryDetailModel.photo,
+                  recipeSmallModel.photo,
                   width: 170,
                   height: 153,
                   fit: BoxFit.cover,

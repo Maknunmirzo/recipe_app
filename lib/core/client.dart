@@ -5,8 +5,6 @@ import 'package:recipe_app/core/Exceptions/auth_exception.dart';
 import 'package:recipe_app/core/secure_storage.dart';
 import 'package:recipe_app/features/auth/data/models/sign_up_user_model.dart';
 
-
-
 class ApiClient {
   Dio dio = Dio(BaseOptions(baseUrl: "http://10.10.2.49:8888/api/v1"));
 
@@ -68,9 +66,20 @@ class ApiClient {
     List<dynamic> data = response.data;
     return data;
   }
-Future<dynamic> fetchRecipeById(int recipeId) async{
-    var response=await dio.get("/recipes/detail/$recipeId");
-    return response.data;
-}
 
+  Future<dynamic> fetchRecipeById(int recipeId) async {
+    var response = await dio.get("/recipes/detail/$recipeId");
+    return response.data;
+  }
+
+  Future<dynamic> fetchTrendingRecipe() async {
+    var response = await dio.get("/recipes/trending-recipe");
+    return response.data;
+  }
+
+  Future<List<dynamic>> fetchMyRecipes([int? limit]) async {
+    var response = await dio.get("/recipes/my-recipes?Limit=$limit");
+    List<dynamic> data = response.data;
+    return data;
+  }
 }

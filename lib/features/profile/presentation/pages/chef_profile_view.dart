@@ -53,8 +53,8 @@ class ChefProfileViewContent extends StatelessWidget {
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
-                return CategoryDetailItem(
-                  categoryDetailModel: viewModel.recipeModels[index],
+                return RecipeSmall(
+                  recipeSmallModel: viewModel.recipeModels[index],
                 );
               },
             ),

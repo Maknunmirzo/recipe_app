@@ -35,8 +35,8 @@ class CategoryDetailView extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemBuilder: (context, index) {
-            return CategoryDetailItem(
-              categoryDetailModel: viewModel.recipes[index],
+            return RecipeSmall(
+              recipeSmallModel: viewModel.recipes[index],
             );
           },
         ),

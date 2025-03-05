@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/features/home_page/presentation/manager/home_page_view_model.dart';
+import 'package:recipe_app/features/home_page/presentation/pages/home_page.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_video_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view.dart';
@@ -20,7 +22,7 @@ import '../../features/profile/presentation/pages/chef_profile_view.dart';
 import 'routes.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: Routes.recipe,
+  initialLocation: Routes.homePage,
   routes: [
     GoRoute(
       path: "/date",
@@ -97,5 +99,15 @@ final GoRouter router = GoRouter(
         child: RecipeView(),
       ),
     ),
+    GoRoute(
+      path: Routes.homePage,
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => HomePageViewModel(
+          recipeRepo: context.read(),
+          categoryRepo: context.read(),
+        ),
+        child: HomePage(),
+      ),
+    )
   ],
 );

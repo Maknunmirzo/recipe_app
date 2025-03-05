@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_icon.dart';
 import 'package:recipe_app/core/routing/routes.dart';
@@ -26,7 +27,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 60,
+          bottom: 60.h,
           // right: 0,
           // left: 0,
           child: BottomNavigationBarVanilla(),
@@ -51,7 +52,9 @@ class BottomNavigationBarVanilla extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          RecipeBottomIcon(onTap: () {}, icon: "assets/svg/bottom/home.svg"),
+          RecipeBottomIcon(onTap: () {
+            context.go(Routes.homePage);
+          }, icon: "assets/svg/bottom/home.svg"),
           RecipeBottomIcon(onTap: () {}, icon: "assets/svg/bottom/community.svg"),
           RecipeBottomIcon(onTap: () {
             context.go(Routes.categories);
