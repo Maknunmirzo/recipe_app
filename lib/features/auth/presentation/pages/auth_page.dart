@@ -76,7 +76,7 @@ class AuthView extends StatelessWidget {
                 callback: () async {
                   if (vm.formKey.currentState!.validate()) {
                     if (await vm.login() && context.mounted) {
-                      context.go(Routes.categories);
+                      context.go(Routes.homePage);
                     }
                   }
                 },

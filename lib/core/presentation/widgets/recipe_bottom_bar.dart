@@ -27,7 +27,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 60.h,
+          // bottom: 40.h,
           // right: 0,
           // left: 0,
           child: BottomNavigationBarVanilla(),
@@ -60,7 +60,7 @@ class BottomNavigationBarVanilla extends StatelessWidget {
             context.go(Routes.categories);
           }, icon: "assets/svg/bottom/categories.svg"),
           RecipeBottomIcon(onTap: () {
-            context.go(Routes.chefProfile);
+            context.go(Routes.meProfile);
           }, icon: "assets/svg/bottom/profile.svg")
         ],
       ),

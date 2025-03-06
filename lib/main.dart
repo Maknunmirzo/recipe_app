@@ -9,6 +9,9 @@ import 'core/localization_view_model.dart';
 import 'core/providers.dart';
 import 'core/utils/theme.dart';
 
+
+
+final navigatorKey=GlobalKey<NavigatorState>();
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);

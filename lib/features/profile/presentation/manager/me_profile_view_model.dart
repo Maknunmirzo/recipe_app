@@ -6,18 +6,16 @@ import '../../../category_detail/data/repositories/recipe_repository.dart';
 import '../../data/models/user_model.dart';
 
 
-class ChefProfileViewModel extends ChangeNotifier {
+class MeProfileViewModel extends ChangeNotifier {
   final UserRepository _userRepo;
   final RecipeRepository _recipeRepo;
-  final int userId;
-  late UserModel chef;
-  late List<RecipeSmallModel> recipes;
+  late UserModel me;
+   List<RecipeSmallModel> myRecipes=[];
   bool loading = true;
 
-  ChefProfileViewModel(
+  MeProfileViewModel(
       {required UserRepository userRepo,
-        required this.userId,
-        required RecipeRepository recipeRepo})
+      required RecipeRepository recipeRepo})
       : _userRepo = userRepo,
         _recipeRepo = recipeRepo {
     load();
@@ -26,9 +24,11 @@ class ChefProfileViewModel extends ChangeNotifier {
   Future<void> load() async {
     loading = true;
     notifyListeners();
-    chef = await _userRepo.fetchChefProfileById(userId);
-    recipes = await _recipeRepo.fetchRecipesByUserId(userId: userId);
-    loading = false;
+
+    me = await _userRepo.fetchMyProfile();
+    myRecipes = await _recipeRepo.fetchMyRecipes();
     notifyListeners();
+    loading = false;
+
   }
 }

@@ -13,4 +13,6 @@ class Routes {
 
   static String recipeBuilder(int id, [String? title]) => "/recipe/$id";
   static const homePage = "/";
+
+  static const meProfile="/me-profile";
 }

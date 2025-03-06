@@ -8,8 +8,8 @@ import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/features/category_detail/data/models/recipe_small_model.dart';
 
-class RecipeSmall extends StatelessWidget {
-  const RecipeSmall({super.key, required this.recipeSmallModel});
+class HomeMyRecipes extends StatelessWidget {
+  const HomeMyRecipes({super.key, required this.recipeSmallModel});
 
   final RecipeSmallModel recipeSmallModel;
 
@@ -25,18 +25,23 @@ class RecipeSmall extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Image.network(
+                  recipeSmallModel.photo,
+                  width: 168.w,
+                  height: 162.h,
+                  fit: BoxFit.cover,
+                )),
             Positioned(
-              bottom: -70.w,
-              right: 5,
-              left: 5,
+              bottom: -11.w,
               child: Container(
-                height: 76.h,
-                width: 159.w,
+                height: 48.h,
+                width: 168.w,
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(14)),
+                    borderRadius: BorderRadius.circular(13),
                     border: Border(
                       bottom: BorderSide(color: AppColors.pinkSub, width: 1),
                       right: BorderSide(color: AppColors.pinkSub, width: 1),
@@ -57,38 +62,21 @@ class RecipeSmall extends StatelessWidget {
                       softWrap: true,
                       maxLines: 1,
                     ),
-                    Text(
-                      recipeSmallModel.description,
-                      style: TextStyle(
-                          color: Color(0xff3E2823),
-                          fontFamily: "League Spartan",
-                          fontWeight: FontWeight.w300,
-                          fontSize: 13,
-                          height: 1),
-                      softWrap: true,
-                      maxLines: 2,
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RecipeRating(
                           rating: recipeSmallModel.rating,
                         ),
-                        RecipeTime(time: recipeSmallModel.timeRequired,)
+                        RecipeTime(
+                          time: recipeSmallModel.timeRequired,
+                        )
                       ],
                     )
                   ],
                 ),
               ),
             ),
-            ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: Image.network(
-                  recipeSmallModel.photo,
-                  width: 170.w,
-                  height: 153.h,
-                  fit: BoxFit.cover,
-                )),
             Positioned(
               top: 8,
               right: 8,

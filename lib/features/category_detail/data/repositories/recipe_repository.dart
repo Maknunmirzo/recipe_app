@@ -13,7 +13,7 @@ class RecipeRepository {
 
   List<RecipeSmallModel> recipesByCategory = [];
   List<RecipeSmallModel> recipesByUser = [];
-  List<RecipeSmallModel> MyRecipes = [];
+  List<RecipeSmallModel> myRecipes = [];
 
   Future<List<RecipeSmallModel>> fetchRecipesByCategoryId(
       {required int categoryId}) async {
@@ -44,9 +44,9 @@ class RecipeRepository {
   }
 
   Future<List<RecipeSmallModel>> fetchMyRecipes([int? limit]) async {
-  var     recipeData = await client.fetchMyRecipes(limit);
-    MyRecipes = recipeData.map((e) => RecipeSmallModel.fromJson(e)).toList();
-    return MyRecipes;
+    var     recipeData = await client.fetchMyRecipes(limit);
+    myRecipes = recipeData.map((e) => RecipeSmallModel.fromJson(e)).toList();
+    return myRecipes;
   }
 
 }

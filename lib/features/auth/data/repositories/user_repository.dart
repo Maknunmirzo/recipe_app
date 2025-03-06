@@ -1,5 +1,6 @@
 import 'package:recipe_app/core/client.dart';
 import 'package:recipe_app/core/secure_storage.dart';
+import 'package:recipe_app/features/home_page/data/models/home_chef_model.dart';
 
 import '../../../profile/data/models/user_model.dart';
 import '../models/sign_up_user_model.dart';
@@ -28,38 +29,64 @@ class UserRepository {
       dateOfBirth: dateOfBirth,
       phoneNumber: phoneNumber,
     ));
-    if(result["result"]) {
+    if (result["result"]) {
       SecureStorage.deleteToken();
       SecureStorage.saveToken(token: result["token"]);
       SecureStorage.deleteCredentials();
       SecureStorage.saveCredentials(login: phoneNumber, password: password);
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  UserModel? user;
+  UserModel? chefProfile;
+  UserModel? meProfile;
+  List<HomeChefModel> homeChefs=[];
 
-  Future<UserModel> fetchUser(int userId) async {
-    if (user != null) return user!;
-    var rawUser = await client.fetchUser(userId);
-    user = UserModel.fromJson(rawUser);
-    return user!;
+  Future<UserModel> fetchChefProfileById(int userId) async {
+    if (chefProfile != null) return chefProfile!;
+    var rawUser = await client.fetchChefProfileById(userId);
+    chefProfile = UserModel.fromJson(rawUser);
+    return chefProfile!;
   }
 
 
+  Future<List<HomeChefModel>> fetchHomeChefs([int? limit])async {
+    var chefData=await client.fetchHomeChefs(limit);
+    homeChefs=chefData.map((e)=>HomeChefModel.fromJson(e)).toList();
+    return homeChefs;
+  }
+  Future<UserModel> fetchMyProfile() async {
+    if (meProfile != null) return meProfile!;
+    var rawUser = await client.fetchMyProfile();
+    meProfile = UserModel.fromJson(rawUser);
+    return meProfile!;
+  }
+
   Future<void> login({required String login, required String password}) async {
-    final String token = await client.login(login:login, password:password);
+    final String token = await client.login(login: login, password: password);
     await SecureStorage.deleteCredentials();
     await SecureStorage.saveCredentials(login: login, password: password);
     await SecureStorage.deleteToken();
     await SecureStorage.saveToken(token: token);
   }
 
-  Future logout()async{
+  Future logout() async {
     await SecureStorage.deleteToken();
     await SecureStorage.deleteCredentials();
   }
 
+  Future<bool> refreshToken() async {
+    var credentials = await SecureStorage.getCredentials();
+    if (credentials!['login'] == null || credentials["password"] == null) {
+      return false;
+    } else {
+      var jwt = await client.login(
+          login: credentials['login']!, password: credentials["password"]!);
+      await SecureStorage.deleteToken();
+      await SecureStorage.saveToken(token: jwt);
+      return true;
+    }
+  }
 }

@@ -2,15 +2,16 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/features/home_page/presentation/manager/home_page_view_model.dart';
 import 'package:recipe_app/features/home_page/presentation/pages/home_page.dart';
+import 'package:recipe_app/features/profile/presentation/manager/chef_profile_view_model.dart';
+import 'package:recipe_app/features/profile/presentation/manager/me_profile_view_model.dart';
+import 'package:recipe_app/features/profile/presentation/pages/chef_profile_view.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
-import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_video_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view.dart';
-import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view_video.dart';
+import 'package:recipe_app/main.dart';
 
 import '../../features/auth/presentation/manager/auth_view_model.dart';
 import '../../features/auth/presentation/pages/auth_page.dart';
 import '../../features/auth/presentation/pages/signUpView.dart';
-import '../../features/auth/presentation/widgets/for_learn_date.dart';
 import '../../features/categories/presentation/manager/categories_view_model.dart';
 import '../../features/categories/presentation/pages/categories_view.dart';
 import '../../features/category_detail/presentation/manager/category_detail_view_model.dart';
@@ -18,16 +19,13 @@ import '../../features/category_detail/presentation/pages/category_detail_view.d
 import '../../features/onboarding/presentation/manager/onboarding_view_model.dart';
 import '../../features/onboarding/presentation/pages/onboarding_view.dart';
 import '../../features/onboarding/presentation/pages/onboarding_welcome.dart';
-import '../../features/profile/presentation/pages/chef_profile_view.dart';
+import '../../features/profile/presentation/pages/me_profile_view.dart';
 import 'routes.dart';
 
 final GoRouter router = GoRouter(
+  navigatorKey: navigatorKey,
   initialLocation: Routes.homePage,
   routes: [
-    GoRoute(
-      path: "/date",
-      builder: (context, state) => ForLearnDate(),
-    ),
     GoRoute(
       path: Routes.onboarding,
       builder: (context, state) {
@@ -45,8 +43,24 @@ final GoRouter router = GoRouter(
               state.pathParameters["userId"] ?? "2",
             ) ??
             2;
-        return ChefProfileView(userId: userId);
+        return ChangeNotifierProvider(
+          create: (context) => ChefProfileViewModel(
+              userRepo: context.read(),
+              userId: userId,
+              recipeRepo: context.read()),
+          child: ChefProfileView(),
+        );
       },
+    ),
+    GoRoute(
+      path: Routes.meProfile,
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => MeProfileViewModel(
+          userRepo: context.read(),
+          recipeRepo: context.read(),
+        ),
+        child: MeProfileView(),
+      ),
     ),
     GoRoute(
         path: Routes.welcome,
@@ -103,9 +117,9 @@ final GoRouter router = GoRouter(
       path: Routes.homePage,
       builder: (context, state) => ChangeNotifierProvider(
         create: (context) => HomePageViewModel(
-          recipeRepo: context.read(),
-          categoryRepo: context.read(),
-        ),
+            recipeRepo: context.read(),
+            categoryRepo: context.read(),
+            userRepo: context.read()),
         child: HomePage(),
       ),
     )

@@ -1,96 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
+import 'package:recipe_app/core/presentation/widgets/recipe_bottom_bar.dart';
+import 'package:recipe_app/core/presentation/widgets/recipe_elevated_button.dart';
+import 'package:recipe_app/core/routing/routes.dart';
+import 'package:recipe_app/features/profile/presentation/manager/chef_profile_view_model.dart';
+import 'package:recipe_app/features/profile/presentation/widgets/user_profile_container.dart';
+import 'package:recipe_app/features/profile/presentation/widgets/user_profile_photo.dart';
 
 import '../../../../core/presentation/widgets/recipe_small.dart';
 import '../../../../core/utils/colors.dart';
-import '../manager/chef_profile_view_model.dart';
-import '../widgets/user_view_app_bar.dart';
+
+import '../widgets/chef_following_button.dart';
+import '../widgets/chef_profile_app_bar.dart';
 
 class ChefProfileView extends StatelessWidget {
-  const ChefProfileView({super.key, required this.userId});
-
-  final int userId;
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserViewModel>(
-      create: (context) =>
-          UserViewModel(
-            repo: context.read(),
-            userId: userId,
-            recipeRepo: context.read(),
-          ),
-      child: ChefProfileViewContent(),
-    );
-  }
-}
-
-class ChefProfileViewContent extends StatelessWidget {
-  const ChefProfileViewContent({
+  const ChefProfileView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    var viewModel = context.watch<UserViewModel>();
-    if (viewModel.loading == true) {
-      return CircularProgressIndicator();
-    } else {
-      return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          extendBody: true,
-          backgroundColor: AppColors.beigeColor,
-          appBar: UserViewAppBar(),
-          body: TabBarView(children: [
-            GridView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              itemCount: viewModel.recipeModels.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-                childAspectRatio: 170 / 226,
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) {
-                return RecipeSmall(
-                  recipeSmallModel: viewModel.recipeModels[index],
-                );
-              },
-            ),
-            SizedBox(
-              width: 350,
-              height: double.infinity,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 250,
-                     height: 250,
-                      child: CircularProgressIndicator(
-                        backgroundColor: AppColors.pink,
-                        color: AppColors.redPinkMain,
+    var vm = context.watch<ChefProfileViewModel>();
+    return Scaffold(
+      extendBody: true,
+      backgroundColor: AppColors.beigeColor,
+      appBar: ChefProfileAppBar(
+        backTap: () {
+          context.go(Routes.homePage);
+        },
+        action1Tap: () {},
+        action2Tap: () {},
+        action1: "assets/svg/share.svg",
+        action2: "assets/svg/three-dots.svg",
+        title: "@${vm.chef.username}" ?? "Chef_username",
+      ),
+      body: (!vm.loading)
+          ? DefaultTabController(
+              length: 1,
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: 10,
+                    children: [
+                      UserProfilePhoto(photo: vm.chef.profilePhoto),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        spacing: 8,
+                        children: [
+                          Text(
+                            softWrap: true,
+                            maxLines: 1,
+                            "${vm.chef.name} ${vm.chef.surname}",
+                            style: TextStyle(
+                              color: AppColors.redPinkMain,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Text(
+                            softWrap: true,
+                            maxLines: 3,
+                            vm.chef.presentation,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "League Spartans",
+                                fontWeight: FontWeight.w300,
+                                fontSize: 12,
+                                height: 1),
+                          ),
+                          ChefFollowingButton()
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  UserProfileContainer(
+                    recipesCount: vm.chef.recipesCount,
+                    followingCount: vm.chef.followingCount,
+                    followerCount: vm.chef.followerCount,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  TabBar(
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicatorColor: AppColors.redPinkMain,
+                    tabs: [
+                      Text(
+                        "Recipes",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "Poppins",
+                          fontSize: 12,
+                        ),
                       ),
+                    ],
+                  ),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: vm.recipes.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: 170.w / 226.h,
+                      crossAxisCount: 2,
                     ),
-                    Text(
-                      "maknun is powerful",
-                      style: TextStyle(
-                        color: AppColors.redPinkMain,
-                        fontFamily: "League Spartan",
-                        fontSize: 94,
-                        height: 0.9
-                      ),
-                    ),
-                  ],
-                ),
+                    itemBuilder: (context, index) {
+                      return RecipeSmall(
+                        recipeSmallModel: vm.recipes[index],
+                      );
+                    },
+                  ),
+                ],
               ),
             )
-          ]),
-        ),
-      );
-    }
+          : CircularProgressIndicator(),
+      bottomNavigationBar: RecipeBottomNavigationBar(),
+    );
   }
 }
-
