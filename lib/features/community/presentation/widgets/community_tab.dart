@@ -22,7 +22,9 @@ class CommunityTab extends StatelessWidget {
       onTap: () {
         vm.index = index;
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 400),
+        curve: Curves.easeOut,
         width: 119.w,
         height: 25.h,
         padding: EdgeInsets.symmetric(horizontal: 2),

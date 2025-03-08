@@ -35,38 +35,38 @@ class RecipeView extends StatelessWidget {
       bottomNavigationBar: RecipeBottomNavigationBar(),
       body: (!vm.isLoading)
           ? ListView(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              children: [
-                RecipeImage(),
-                SizedBox(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            children: [
+              RecipeImage(),
+              SizedBox(
                   height: 20
-                ),
-                RecipeViewChefProfile(),
-                SizedBox(
-                  height: 20
-                ),
-                RecipeViewDetailItem(
-                  time: vm.recipe.time,
-                  dec: vm.recipe.dec,
-                ),
-                SizedBox(
-                  height: 20
-                ),
-                RecipeViewIngredients(ingredients: vm.recipe.ingredients),
-                SizedBox(
-                    height: 20
-                ),
-                RecipeViewSteps(rawInstruction: vm.recipe.instructions),
-
-              ],
-            )
-          : Center(
-              child: SizedBox(
-                height: 100,
-                width: 100,
-                child: CircularProgressIndicator(),
               ),
-            ),
+              RecipeViewChefProfile(),
+              SizedBox(
+                  height: 20
+              ),
+              RecipeViewDetailItem(
+                time: vm.recipe.time,
+                dec: vm.recipe.dec,
+              ),
+              SizedBox(
+                  height: 20
+              ),
+              RecipeViewIngredients(ingredients: vm.recipe.ingredients),
+              SizedBox(
+                  height: 20
+              ),
+              RecipeViewSteps(rawInstruction: vm.recipe.instructions),
+
+            ],
+          )
+          : Center(
+        child: SizedBox(
+          height: 100,
+          width: 100,
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }

@@ -30,20 +30,30 @@ class CommunityView extends StatelessWidget {
       bottomNavigationBar: RecipeBottomNavigationBar(),
       extendBody: true,
       body: (!vm.loading)
-          ? ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              itemCount: vm.communityRecipes.length,
-              separatorBuilder: (context, index) => SizedBox(
-                height: 15,
-              ),
-              itemBuilder: (context, index) => Center(
-                child: GestureDetector(
-                  onTap: () => context.push(
-                    Routes.recipeBuilder(vm.communityRecipes[index].id),
-                  ),
-                  child: CommunityRecipeWidget(
-                    model: vm.communityRecipes[index],
-                    created: vm.sinceCreated(model: vm.communityRecipes[index]),
+          ? GestureDetector(
+              onHorizontalDragUpdate: (details) {
+                if (details.primaryDelta! > 10) {
+                  if (vm.index > 0) vm.index -= 1;
+                } else if (details.primaryDelta! < -10) {
+                  if (vm.index < 2) vm.index += 1;
+                }
+              },
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                itemCount: vm.communityRecipes.length,
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 15,
+                ),
+                itemBuilder: (context, index) => Center(
+                  child: GestureDetector(
+                    onTap: () => context.push(
+                      Routes.recipeBuilder(vm.communityRecipes[index].id),
+                    ),
+                    child: CommunityRecipeWidget(
+                      model: vm.communityRecipes[index],
+                      created:
+                          vm.sinceCreated(model: vm.communityRecipes[index]),
+                    ),
                   ),
                 ),
               ),
