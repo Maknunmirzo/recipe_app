@@ -42,7 +42,7 @@ class HomePageViewModel extends ChangeNotifier {
     trendingRecipe = await _recipeRepo.fetchTrendingRecipe();
     myRecipes = await _recipeRepo.fetchMyRecipes(2);
     categories = await _categoryRepo.fetchCategories();
-    addedRecipes=await _recipeRepo.fetchRecipesByCategoryId(categoryId: 1);
+    addedRecipes=await _recipeRepo.fetchRecipesOrderByDate(2);
     chefs=await _userRepo.fetchHomeChefs(4);
     me=await _userRepo.fetchMyProfile();
     loading = false;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_bar.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_app_bar.dart';
@@ -21,7 +22,9 @@ class RecipeView extends StatelessWidget {
 
     return Scaffold(
       appBar: RecipeAppBar(
-        backTap: () {},
+        backTap: () {
+          context.canPop();
+        },
         action1Tap: () {},
         action2Tap: () {},
         action1: "assets/svg/heart.svg",

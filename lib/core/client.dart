@@ -67,14 +67,21 @@ class ApiClient {
   }
 
   Future<List<dynamic>> fetchMyRecipes([int? limit]) async {
-    var response = await dio.get("/recipes/my-recipes?Limit=$limit");
+    var response = await dio.get("/recipes/my-recipes?Limit=${limit ?? ""}");
     List<dynamic> data = response.data;
     return data;
   }
-  
-  Future<List<dynamic>> fetchHomeChefs([int? limit])async {
-    var response=await dio.get("/auth/top-chefs?Limit=$limit");
-    List<dynamic> data=response.data;
+
+  Future<List<dynamic>> fetchHomeChefs([int? limit]) async {
+    var response = await dio.get("/auth/top-chefs?Limit=${limit ?? ""}");
+    List<dynamic> data = response.data;
+    return data;
+  }
+
+  Future<List<dynamic>> fetchRecipesOrderByDate(int? limit) async {
+    var response = await dio
+        .get("/recipes/list?Limit=${limit ?? ""}&Order=date&Descending=false");
+    List<dynamic> data = response.data;
     return data;
   }
 
@@ -97,6 +104,17 @@ class ApiClient {
   Future<List<dynamic>> fetchRecipesByCategoryId(int categoryId) async {
     var response = await dio.get("/recipes/list?Category=$categoryId");
     final List<dynamic> data = response.data;
+    return data;
+  }
+
+  Future<List<dynamic>> fetchCommunityRecipes(
+    int? limit, {
+    required String order,
+    bool descending = true,
+  }) async {
+    var response = await dio.get(
+        "/recipes/community/list?Limit=${limit ?? ""}&Order=$order&Descending=$descending");
+    List<dynamic> data = response.data;
     return data;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/utils/colors.dart';
@@ -15,7 +16,7 @@ class RecipeImage extends StatelessWidget {
     var vm = context.watch<RecipeViewModel>();
     return Container(
       width: double.infinity,
-      height: 337,
+      height: 337.h,
       padding: EdgeInsets.only(
         bottom: 16,
       ),

@@ -46,6 +46,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   video_player: ^2.9.3
   syncfusion_flutter_sliders: ^28.2.9
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -66,10 +67,7 @@ flutter:
   assets:
     - assets/svg/
     - assets/svg/bottom/
-    - assets/images/categories/
-    - assets/images/categories_details/
-    - assets/images/home_page/
-    - assets/images/recipes/
+
 
   fonts:
     - family: Poppins

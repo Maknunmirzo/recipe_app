@@ -15,4 +15,8 @@ class Routes {
   static const homePage = "/";
 
   static const meProfile="/me-profile";
+
+  static const community="/community";
+
+  static String chefProfileBuilder(int id)=>"/user/$id";
 }

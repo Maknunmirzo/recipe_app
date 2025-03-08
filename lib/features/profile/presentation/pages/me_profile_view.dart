@@ -16,7 +16,7 @@ class MeProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var viewModel = context.watch<MeProfileViewModel>();
-    if (!viewModel.loading) {
+    if (viewModel.loading) {
       return Center(child: CircularProgressIndicator());
     } else {
       return DefaultTabController(

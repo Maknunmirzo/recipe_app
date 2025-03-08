@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/features/community/presentation/manager/community_view_model.dart';
+import 'package:recipe_app/features/community/presentation/pages/community_view.dart';
 import 'package:recipe_app/features/home_page/presentation/manager/home_page_view_model.dart';
 import 'package:recipe_app/features/home_page/presentation/pages/home_page.dart';
 import 'package:recipe_app/features/profile/presentation/manager/chef_profile_view_model.dart';
@@ -38,19 +40,13 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.chefProfile,
-      builder: (context, state) {
-        final userId = int.tryParse(
-              state.pathParameters["userId"] ?? "2",
-            ) ??
-            2;
-        return ChangeNotifierProvider(
-          create: (context) => ChefProfileViewModel(
-              userRepo: context.read(),
-              userId: userId,
-              recipeRepo: context.read()),
-          child: ChefProfileView(),
-        );
-      },
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => ChefProfileViewModel(
+            userRepo: context.read(),
+            userId: int.parse(state.pathParameters["userId"]!),
+            recipeRepo: context.read()),
+        child: ChefProfileView(),
+      ),
     ),
     GoRoute(
       path: Routes.meProfile,
@@ -97,18 +93,14 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: "/signUp",
-      builder: (
-        context,
-        state,
-      ) =>
-          SignUpView(),
+      builder: (context, state) => SignUpView(),
     ),
     GoRoute(
       path: Routes.recipe,
       builder: (context, state) => ChangeNotifierProvider(
         create: (context) => RecipeViewModel(
           repo: context.read(),
-          recipeId: 1,
+          recipeId: int.parse(state.pathParameters["recipeId"]!),
         ),
         child: RecipeView(),
       ),
@@ -121,6 +113,15 @@ final GoRouter router = GoRouter(
             categoryRepo: context.read(),
             userRepo: context.read()),
         child: HomePage(),
+      ),
+    ),
+    GoRoute(
+      path: Routes.community,
+      builder: (context, state) => ChangeNotifierProvider(
+        create: (context) => CommunityViewModel(
+          repo: context.read(),
+        ),
+        child: CommunityView(),
       ),
     )
   ],

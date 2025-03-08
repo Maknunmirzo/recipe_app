@@ -5,11 +5,12 @@ import 'package:recipe_app/features/category_detail/data/models/recipe_small_mod
 
 class RecipeRating extends StatelessWidget {
   const RecipeRating({
-    super.key, required this.rating,
+    super.key, required this.rating,  this.color=AppColors.pinkSub,
 
   });
 
   final num rating;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class RecipeRating extends StatelessWidget {
         Text(
           "$rating",
           style: TextStyle(
-            color: AppColors.pinkSub,
+            color: color,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w400,
             fontSize: 12,
@@ -32,6 +33,7 @@ class RecipeRating extends StatelessWidget {
           width: 10,
           height: 10,
           fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
         )
       ],
     );

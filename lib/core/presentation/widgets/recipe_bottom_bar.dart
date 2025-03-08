@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_icon.dart';
 import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
+import 'package:recipe_app/features/categories/presentation/manager/categories_view_model.dart';
+import 'package:recipe_app/features/categories/presentation/pages/categories_view.dart';
 
 class RecipeBottomNavigationBar extends StatelessWidget {
   const RecipeBottomNavigationBar({super.key});
@@ -52,16 +55,26 @@ class BottomNavigationBarVanilla extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          RecipeBottomIcon(onTap: () {
-            context.go(Routes.homePage);
-          }, icon: "assets/svg/bottom/home.svg"),
-          RecipeBottomIcon(onTap: () {}, icon: "assets/svg/bottom/community.svg"),
-          RecipeBottomIcon(onTap: () {
-            context.go(Routes.categories);
-          }, icon: "assets/svg/bottom/categories.svg"),
-          RecipeBottomIcon(onTap: () {
-            context.go(Routes.meProfile);
-          }, icon: "assets/svg/bottom/profile.svg")
+          RecipeBottomIcon(
+              onTap: () {
+                context.go(Routes.homePage);
+              },
+              icon: "assets/svg/bottom/home.svg"),
+          RecipeBottomIcon(
+              onTap: () {
+                context.push(Routes.community);
+              },
+              icon: "assets/svg/bottom/community.svg"),
+          RecipeBottomIcon(
+              onTap: () {
+                context.push(Routes.categories);
+              },
+              icon: "assets/svg/bottom/categories.svg"),
+          RecipeBottomIcon(
+              onTap: () {
+                context.push(Routes.meProfile);
+              },
+              icon: "assets/svg/bottom/profile.svg")
         ],
       ),
     );

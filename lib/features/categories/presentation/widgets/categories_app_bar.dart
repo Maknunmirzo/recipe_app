@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipe_app/core/presentation/widgets/app_bar_action.dart';
 import 'package:recipe_app/core/utils/colors.dart' show AppColors;
 
@@ -17,7 +18,9 @@ class CategoriesAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         backgroundColor: AppColors.beigeColor,
         leading: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.pop();
+          },
           child: SizedBox(
             width: 21,
             height: 14,

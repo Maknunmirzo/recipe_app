@@ -7,9 +7,12 @@ class RecipeTime extends StatelessWidget {
   const RecipeTime({
     super.key,
     required this.time,
+    this.color=AppColors.pinkSub
   });
 
   final num time;
+
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +23,7 @@ class RecipeTime extends StatelessWidget {
           width: 10,
           height: 10,
           fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
         ),
         SizedBox(
           width: 3,
@@ -27,7 +31,7 @@ class RecipeTime extends StatelessWidget {
         Text(
           "$time min",
           style: TextStyle(
-            color: AppColors.pinkSub,
+            color: color,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w400,
             fontSize: 12,

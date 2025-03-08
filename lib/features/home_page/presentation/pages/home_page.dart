@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_bar.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_small.dart';
@@ -25,29 +26,34 @@ class HomePage extends StatelessWidget {
       body: (!vm.loading)
           ? ListView(
               children: [
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 36.w),
+                  padding: EdgeInsets.symmetric(horizontal: 36.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       HomePageLabelText(label: "Trending Recipe"),
-                      SizedBox(height: 6,),
+                      SizedBox(
+                        height: 6,
+                      ),
                       TrendingRecipe(trendingRecipe: vm.trendingRecipe)
                     ],
                   ),
                 ),
-                SizedBox(height: 60,),
+                SizedBox(
+                  height: 60,
+                ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 36.w,vertical: 14),
+                  padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 14),
                   width: double.infinity,
                   height: 255.h,
                   decoration: BoxDecoration(
-                    color: AppColors.redPinkMain,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
+                      color: AppColors.redPinkMain,
+                      borderRadius: BorderRadius.circular(20)),
                   child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
@@ -62,41 +68,49 @@ class HomePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          HomeMyRecipes(recipeSmallModel: vm.myRecipes[0]) ,
+                          HomeMyRecipes(recipeSmallModel: vm.myRecipes[0]),
                           HomeMyRecipes(recipeSmallModel: vm.myRecipes[1])
                         ],
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 14,),
+                SizedBox(
+                  height: 14,
+                ),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 36.w),
+                  padding: EdgeInsets.symmetric(horizontal: 36.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       HomePageLabelText(label: "Top Chefs"),
-                      SizedBox(height: 7,),
+                      SizedBox(
+                        height: 7,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          HomeChef(image: vm.chefs[0].image, name: vm.chefs[0].name),
-                          HomeChef(image: vm.chefs[1].image, name: vm.chefs[1].name),
-                          HomeChef(image: vm.chefs[2].image, name: vm.chefs[2].name),
-                          HomeChef(image: vm.chefs[3].image, name: vm.chefs[3].name)
+                          HomeChef(chef: vm.chefs[0]),
+                          HomeChef(chef: vm.chefs[1]),
+                          HomeChef(chef: vm.chefs[2]),
+                          HomeChef(chef: vm.chefs[3])
                         ],
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 14,),
+                SizedBox(
+                  height: 14,
+                ),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 36.w),
+                  padding: EdgeInsets.symmetric(horizontal: 36.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       HomePageLabelText(label: "Recently Added"),
-                      SizedBox(height: 7,),
+                      SizedBox(
+                        height: 7,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
