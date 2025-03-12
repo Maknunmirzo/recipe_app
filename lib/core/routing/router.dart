@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/features/community/presentation/manager/community_view_model.dart';
@@ -9,12 +10,13 @@ import 'package:recipe_app/features/profile/presentation/manager/me_profile_view
 import 'package:recipe_app/features/profile/presentation/pages/chef_profile_view.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view.dart';
+import 'package:recipe_app/features/reviews/presentation/pages/reviews_page.dart';
 import 'package:recipe_app/main.dart';
 
 import '../../features/auth/presentation/manager/auth_view_model.dart';
 import '../../features/auth/presentation/pages/auth_page.dart';
 import '../../features/auth/presentation/pages/signUpView.dart';
-import '../../features/categories/presentation/manager/categories_view_model.dart';
+import '../../features/categories/presentation/manager/categories_cubit.dart';
 import '../../features/categories/presentation/pages/categories_view.dart';
 import '../../features/category_detail/presentation/manager/category_detail_view_model.dart';
 import '../../features/category_detail/presentation/pages/category_detail_view.dart';
@@ -26,7 +28,7 @@ import 'routes.dart';
 
 final GoRouter router = GoRouter(
   navigatorKey: navigatorKey,
-  initialLocation: Routes.homePage,
+  initialLocation: Routes.reviews,
   routes: [
     GoRoute(
       path: Routes.onboarding,
@@ -66,10 +68,11 @@ final GoRouter router = GoRouter(
             )),
     GoRoute(
       path: Routes.categories,
-      builder: (context, state) => CategoriesView(
-          viewModel: CategoriesViewModel(
-        repo: context.read(),
-      )),
+      builder: (context, state) => BlocProvider(
+        create: (context) => CategoriesBloc(
+          repo: context.read(),
+        ),
+child: CategoriesView(),      ),
     ),
     GoRoute(
         path: Routes.categoryDetail,
@@ -123,6 +126,7 @@ final GoRouter router = GoRouter(
         ),
         child: CommunityView(),
       ),
-    )
+    ),
+    GoRoute(path: Routes.reviews,builder: (context, state) => ReviewsPage(),)
   ],
 );

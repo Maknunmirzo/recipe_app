@@ -35,7 +35,7 @@ class ChefProfileView extends StatelessWidget {
         action2Tap: () {},
         action1: "assets/svg/share.svg",
         action2: "assets/svg/three-dots.svg",
-        title: "@${vm.chef.username}" ?? "Chef_username",
+        title: "@${!vm.loading ? vm.chef.username :"Chef_username"}",
       ),
       body: (!vm.loading)
           ? DefaultTabController(

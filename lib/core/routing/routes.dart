@@ -19,4 +19,6 @@ class Routes {
   static const community="/community";
 
   static String chefProfileBuilder(int id)=>"/user/$id";
+
+  static String reviews="/reviews";
 }

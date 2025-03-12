@@ -8,7 +8,7 @@ import 'package:recipe_app/features/auth/data/models/sign_up_user_model.dart';
 
 class ApiClient {
   ApiClient() {
-    dio = Dio(BaseOptions(baseUrl: "http://192.168.30.182:8888/api/v1"));
+    dio = Dio(BaseOptions(baseUrl: "http://10.10.3.25:8888/api/v1"));
     dio.interceptors.add(AuthInterceptor());
   }
 
@@ -117,4 +117,11 @@ class ApiClient {
     List<dynamic> data = response.data;
     return data;
   }
+
+  Future<Map<String, dynamic>> fetchRecipeReview(int recipeId) async {
+    var responce = await dio.get("/recipes/reviews/detail/$recipeId");
+    Map<String, dynamic> data = responce.data;
+    return data;
+  }
+
 }

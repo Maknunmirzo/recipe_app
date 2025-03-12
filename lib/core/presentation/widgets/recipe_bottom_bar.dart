@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_icon.dart';
 import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
-import 'package:recipe_app/features/categories/presentation/manager/categories_view_model.dart';
+import 'package:recipe_app/features/categories/presentation/manager/categories_cubit.dart';
 import 'package:recipe_app/features/categories/presentation/pages/categories_view.dart';
 
 class RecipeBottomNavigationBar extends StatelessWidget {

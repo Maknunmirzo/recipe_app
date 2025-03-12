@@ -1,3 +1,5 @@
+import 'package:recipe_app/features/reviews/data/models/review_recipe_model.dart';
+
 import '../../../../core/client.dart';
 import '../../../community/data/models/community_recipe_model.dart';
 import '../../../recipe_detail/data/models/recipe_model.dart';
@@ -7,6 +9,8 @@ class RecipeRepository {
   final ApiClient client;
 
   RecipeModel? recipe;
+
+  ReviewRecipeModel?   reviewRecipe;
 
   RecipeRepository({
     required this.client,
@@ -70,4 +74,13 @@ class RecipeRepository {
     communityRecipes = communitiesData.map((e) => CommunityRecipeModel.fromJson(e)).toList();
     return communityRecipes;
   }
+
+
+  Future<ReviewRecipeModel> fetchReviewRecipe(int recipeId) async{
+    if(reviewRecipe!=null) return reviewRecipe!;
+    var recipeData=await client.fetchRecipeReview(recipeId);
+    reviewRecipe=ReviewRecipeModel.fromJson(recipeData);
+    return reviewRecipe!;
+  }
+
 }
