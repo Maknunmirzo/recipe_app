@@ -1,3 +1,4 @@
+import 'package:recipe_app/features/reviews/data/models/review_comment_model.dart';
 import 'package:recipe_app/features/reviews/data/models/review_recipe_model.dart';
 
 import '../../../../core/client.dart';
@@ -10,7 +11,7 @@ class RecipeRepository {
 
   RecipeModel? recipe;
 
-  ReviewRecipeModel?   reviewRecipe;
+  ReviewsRecipeModel?   reviewRecipe;
 
   RecipeRepository({
     required this.client,
@@ -22,6 +23,8 @@ class RecipeRepository {
   List<RecipeSmallModel> recipesOrderByDate = [];
 
   List<CommunityRecipeModel> communityRecipes = [];
+  
+  List<ReviewCommentModel> comments=[];
 
   Future<List<RecipeSmallModel>> fetchRecipesByCategoryId(
       {required int categoryId}) async {
@@ -63,6 +66,12 @@ class RecipeRepository {
         recipeData.map((e) => RecipeSmallModel.fromJson(e)).toList();
     return recipesOrderByDate;
   }
+  
+  Future<List<ReviewCommentModel>> fetchComments(int recipeId) async{
+    var rawComments=await client.fetchRecipeComments(recipeId);
+    comments=rawComments.map((e)=>ReviewCommentModel.fromJson(e)).toList();
+    return comments;
+  }
 
   Future<List<CommunityRecipeModel>> fetchCommunityRecipes(
     int? limit, {
@@ -76,10 +85,10 @@ class RecipeRepository {
   }
 
 
-  Future<ReviewRecipeModel> fetchReviewRecipe(int recipeId) async{
+  Future<ReviewsRecipeModel> fetchReviewRecipe(int recipeId) async{
     if(reviewRecipe!=null) return reviewRecipe!;
     var recipeData=await client.fetchRecipeReview(recipeId);
-    reviewRecipe=ReviewRecipeModel.fromJson(recipeData);
+    reviewRecipe=ReviewsRecipeModel.fromJson(recipeData);
     return reviewRecipe!;
   }
 

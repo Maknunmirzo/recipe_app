@@ -1,13 +1,13 @@
 import '../../../recipe_detail/data/models/user_small_model.dart';
 
-class ReviewRecipeModel {
+class ReviewsRecipeModel {
   final num rating, reviewsCount;
   final int id;
   final String title, image;
 
   final UserSmallModel user;
 
-  ReviewRecipeModel({
+  ReviewsRecipeModel({
     required this.rating,
     required this.reviewsCount,
     required this.id,
@@ -16,8 +16,8 @@ class ReviewRecipeModel {
     required this.user,
   });
 
-  factory ReviewRecipeModel.fromJson(Map<String, dynamic> json) {
-    return ReviewRecipeModel(
+  factory ReviewsRecipeModel.fromJson(Map<String, dynamic> json) {
+    return ReviewsRecipeModel(
       rating: json["rating"],
       reviewsCount: json["reviewsCount"],
       id: json["id"],

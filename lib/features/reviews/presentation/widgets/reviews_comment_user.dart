@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 
+import '../../data/models/review_comment_user_model.dart';
+
 class ReviewsCommentUser extends StatelessWidget {
   const ReviewsCommentUser({
     super.key,
-    required this.image,
-    required this.username,
-    required this.created,
+    required this.created, required this.user,
   });
 
-  final String image, username, created;
+  final String  created;
+
+  final ReviewCommentUserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ReviewsCommentUser extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: CachedNetworkImage(
-            imageUrl: image,
+            imageUrl: user.profilePhoto,
             fit: BoxFit.cover,
             height: 46.h,
             width: 46.w,
@@ -45,7 +47,7 @@ class ReviewsCommentUser extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                username,
+                user.username,
                 style: TextStyle(
                   color: AppColors.redPinkMain,
                   fontFamily: "Poppins",

@@ -5,20 +5,23 @@ class Routes {
   static const welcome = "/welcome";
   static const categories = "/categories";
   static const categoryDetail = "/category/detail/:categoryId";
-
-  static String categoryDetailBuilder(int id) => "/category/detail/$id";
   static const signUp = "/signUp";
-
   static const recipe = "/recipe/:recipeId";
+  static const homePage = "/";
+  static const meProfile = "/me-profile";
+  static const community = "/community";
+  static const String reviews = "/reviews/:recipeId";
+  static String createReviews = "/create-review/:recipeId";
+
+
+
+  static String chefProfileBuilder(int id) => "/user/$id";
 
   static String recipeBuilder(int id, [String? title]) => "/recipe/$id";
-  static const homePage = "/";
 
-  static const meProfile="/me-profile";
+  static String categoryDetailBuilder(int id) => "/category/detail/$id";
 
-  static const community="/community";
+  static  String reviewsBuilder(int recipeId)=>"/reviews/$recipeId";
 
-  static String chefProfileBuilder(int id)=>"/user/$id";
-
-  static String reviews="/reviews";
+  static  String createReviewsBuilder(int recipeId)=>"/create-review/$recipeId";
 }
