@@ -10,6 +10,7 @@ import 'package:recipe_app/features/profile/presentation/manager/me_profile_view
 import 'package:recipe_app/features/profile/presentation/pages/chef_profile_view.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view.dart';
+import 'package:recipe_app/features/reviews/presentation/manager/create_review_bloc.dart';
 import 'package:recipe_app/features/reviews/presentation/manager/reviews_bloc.dart';
 import 'package:recipe_app/features/reviews/presentation/pages/create_review_view.dart';
 import 'package:recipe_app/features/reviews/presentation/pages/reviews_page.dart';
@@ -30,7 +31,7 @@ import 'routes.dart';
 
 final GoRouter router = GoRouter(
   navigatorKey: navigatorKey,
-  initialLocation: Routes.createReviewsBuilder(2),
+  initialLocation: Routes.createReviewsBuilder(3),
   routes: [
     GoRoute(
       path: Routes.onboarding,
@@ -134,14 +135,21 @@ final GoRouter router = GoRouter(
       path: Routes.reviews,
       builder: (context, state) => BlocProvider(
         create: (context) => ReviewsBloc(
-            repo: context.read(),
+            recipeRepo: context.read(),
+            reviewRepo: context.read(),
             recipeId: int.parse(state.pathParameters["recipeId"]!)),
         child: ReviewsPage(),
       ),
     ),
     GoRoute(
       path: Routes.createReviews,
-      builder: (context, state) => CreateReviewView(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => CreateReviewBloc(
+          repo: context.read(),
+          recipeId: int.parse(state.pathParameters["recipeId"]!),
+        ),
+         child: CreateReviewView(),
+      ),
     )
   ],
 );

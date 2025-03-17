@@ -24,7 +24,7 @@ class RecipeRepository {
 
   List<CommunityRecipeModel> communityRecipes = [];
   
-  List<ReviewCommentModel> comments=[];
+
 
   Future<List<RecipeSmallModel>> fetchRecipesByCategoryId(
       {required int categoryId}) async {
@@ -67,11 +67,7 @@ class RecipeRepository {
     return recipesOrderByDate;
   }
   
-  Future<List<ReviewCommentModel>> fetchComments(int recipeId) async{
-    var rawComments=await client.fetchRecipeComments(recipeId);
-    comments=rawComments.map((e)=>ReviewCommentModel.fromJson(e)).toList();
-    return comments;
-  }
+
 
   Future<List<CommunityRecipeModel>> fetchCommunityRecipes(
     int? limit, {

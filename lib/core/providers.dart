@@ -1,5 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:recipe_app/features/reviews/data/repositories/review_repository.dart';
 
 import '../features/auth/data/repositories/user_repository.dart';
 import '../features/categories/data/repositories/categories_repository.dart';
@@ -18,6 +19,7 @@ List<SingleChildWidget> providers=[
           RecipeRepository(client: context.read())),
   Provider(
       create: (context) => CategoriesRepository(client: context.read())),
+  Provider(create: (context) => ReviewRepository(client: context.read()),),
   ChangeNotifierProvider(create: (context) => LocalizationViewModel(),)
 ];
 
