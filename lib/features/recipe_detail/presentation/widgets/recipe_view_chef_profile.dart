@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_elevated_button.dart';
@@ -20,13 +21,13 @@ class RecipeViewChefProfile extends StatelessWidget {
           borderRadius: BorderRadius.circular(31),
           child: Image.network(
             vm.recipe.user.profilePhoto,
-            width: 61,
-            height: 61,
+            width: 61.w,
+            height: 61.h,
             fit: BoxFit.cover,
           ),
         ),
         SizedBox(
-          width: 132,
+          width: 132.w,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

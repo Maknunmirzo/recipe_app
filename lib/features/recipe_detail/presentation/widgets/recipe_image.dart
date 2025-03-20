@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/pages/recipe_view_video.dart';
@@ -35,7 +37,7 @@ class RecipeImage extends StatelessWidget {
                 child: Image.network(
                   vm.recipe.image,
                   width: double.infinity,
-                  height: 281,
+                  height: 281.h,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -53,8 +55,8 @@ class RecipeImage extends StatelessWidget {
                     ),
                   ),
                 child: Container(
-                  width: 74,
-                  height: 74,
+                  width: 74.w,
+                  height: 74.h,
                   decoration: BoxDecoration(
                       color: AppColors.redPinkMain,
                       borderRadius: BorderRadius.circular(32)),
@@ -62,8 +64,8 @@ class RecipeImage extends StatelessWidget {
                     child: SvgPicture.asset(
                       "assets/svg/play.svg",
                       fit: BoxFit.cover,
-                      width: 30,
-                      height: 40,
+                      width: 30.w,
+                      height: 40.h,
                     ),
                   ),
                 ),
@@ -76,7 +78,7 @@ class RecipeImage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 241,
+                  width: 241.w,
                   child: Text(
                     vm.recipe.title,
                     style: TextStyle(
@@ -95,8 +97,8 @@ class RecipeImage extends StatelessWidget {
                       children: [
                         SvgPicture.asset(
                           "assets/svg/star.svg",
-                          width: 10,
-                          height: 10,
+                          width: 10.w,
+                          height: 10.h,
                           fit: BoxFit.fill,
                           colorFilter: ColorFilter.mode(
                             Colors.white,
@@ -117,27 +119,30 @@ class RecipeImage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/svg/reviews.svg",
-                          width: 10,
-                          height: 10,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(
-                          width: 3,
-                        ),
-                        Text(
-                          "${vm.recipe.time}",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
+                    GestureDetector(
+                      onTap:   () => context.push(Routes.reviewsBuilder(vm.recipe.id)),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/svg/reviews.svg",
+                            width: 10,
+                            height: 10,
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            "${vm.recipe.time}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 )

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:recipe_app/core/client.dart';
 import 'package:recipe_app/features/reviews/data/models/create_review_model.dart';
 
@@ -15,15 +17,20 @@ class ReviewRepository {
     return comments;
   }
 
-  Future<bool> createReview({
-    required int recipeId,
-    required int rating,
-    required String comment,
-    required bool isReco,
-  }) async {
-    var rawReview = CreateReviewModel(
-        recipeId: recipeId, rating: rating, comment: comment, isReco: isReco);
-    var result = await client.createReview(review: rawReview.toJson());
+  Future<bool> createReview(
+      {required int recipeId,
+      required int rating,
+      required String comment,
+      required bool isReco,
+      File? image}) async {
+    var review = CreateReviewModel(
+      recipeId: recipeId,
+      rating: rating,
+      comment: comment,
+      isReco: isReco,
+      image: image,
+    );
+    var result = await client.createReview(review: review);
     return result;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:recipe_app/features/reviews/data/models/recipe_create_review_model.dart';
 import 'package:recipe_app/features/reviews/data/models/review_comment_model.dart';
 import 'package:recipe_app/features/reviews/data/models/review_recipe_model.dart';
 
@@ -82,10 +83,15 @@ class RecipeRepository {
 
 
   Future<ReviewsRecipeModel> fetchReviewRecipe(int recipeId) async{
-    if(reviewRecipe!=null) return reviewRecipe!;
     var recipeData=await client.fetchRecipeReview(recipeId);
     reviewRecipe=ReviewsRecipeModel.fromJson(recipeData);
     return reviewRecipe!;
+  }
+
+  Future<RecipeCreateReviewModel> fetchRecipeForReviews(int recipeId) async{
+    var rawRecipe=await client.fetchRecipeForReviews(recipeId);
+    RecipeCreateReviewModel recipeCreate=RecipeCreateReviewModel.fromJson(rawRecipe);
+    return recipeCreate;
   }
 
 }

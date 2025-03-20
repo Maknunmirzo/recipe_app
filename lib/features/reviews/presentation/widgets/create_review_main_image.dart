@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/core/utils/colors.dart';
+import 'package:recipe_app/features/reviews/data/models/recipe_create_review_model.dart';
 
 class CreateReviewMainImage extends StatelessWidget {
   const CreateReviewMainImage(
-      {super.key, required this.image, required this.title});
+      {super.key, required this.recipeModel,});
 
-  final String image, title;
+
+  final RecipeCreateReviewModel recipeModel;
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class CreateReviewMainImage extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: CachedNetworkImage(
-              imageUrl: image,
+              imageUrl: recipeModel.image,
               fit: BoxFit.cover,
               height: 206.h,
               width: double.infinity,
@@ -46,7 +49,7 @@ class CreateReviewMainImage extends StatelessWidget {
               vertical: 10,
             ),
             child: Text(
-              title,
+              recipeModel.title,
               maxLines: 1,
               softWrap: true,
               style: TextStyle(

@@ -10,22 +10,21 @@ import '../../../../core/utils/colors.dart';
 
 class CreateReviewButtons extends StatelessWidget {
   const CreateReviewButtons({
-    super.key, required this.controller,
+    super.key,
   });
 
-  final TextEditingController controller;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateReviewBloc, CreateReviewState>(
       builder: (context, state) => Row(
         crossAxisAlignment: CrossAxisAlignment.end,
-        spacing: 17,
+        spacing: 17.w,
         children: [
           RecipeElevatedButton(
             text: "Cancel",
             callback: () {
-              context.read<CreateReviewBloc>().add(ResetReviewForm());
-              controller.clear();
+              context.pop();
             },
             size: Size(168.w, 23.h),
             fontSize: 14,
@@ -33,22 +32,8 @@ class CreateReviewButtons extends StatelessWidget {
           RecipeElevatedButton(
             text: "Submit",
             callback: () async {
-              context.read<CreateReviewBloc>().add(AddComment(controller.text));
                context.read<CreateReviewBloc>().add(ReviewSubmit());
-              if(state.status==CreateReviewStatus.error){
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      "Error 404!",
-                      style: TextStyle(color: Colors.white), // Matn rangi
-                    ),
-                    backgroundColor: Colors.red, // Orqa fon rangi
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-
-              }
-               if(state.status==CreateReviewStatus.idle){
+               if(state.status==CreateReviewStatus.submitted){
                  ScaffoldMessenger.of(context).showSnackBar(
                    SnackBar(
                      content: Text(

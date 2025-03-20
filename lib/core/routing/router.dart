@@ -31,7 +31,7 @@ import 'routes.dart';
 
 final GoRouter router = GoRouter(
   navigatorKey: navigatorKey,
-  initialLocation: Routes.createReviewsBuilder(3),
+  initialLocation: Routes.homePage,
   routes: [
     GoRoute(
       path: Routes.onboarding,
@@ -145,7 +145,8 @@ final GoRouter router = GoRouter(
       path: Routes.createReviews,
       builder: (context, state) => BlocProvider(
         create: (context) => CreateReviewBloc(
-          repo: context.read(),
+          recipeRepo: context.read(),
+          reviewRepo: context.read(),
           recipeId: int.parse(state.pathParameters["recipeId"]!),
         ),
          child: CreateReviewView(),

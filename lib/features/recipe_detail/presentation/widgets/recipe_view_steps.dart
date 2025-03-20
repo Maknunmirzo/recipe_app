@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/features/recipe_detail/data/models/instruction_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/widgets/recipe_view_label.dart';
@@ -25,7 +26,7 @@ class RecipeViewSteps extends StatelessWidget {
             instructions.length,
             (index) => Container(
               width: double.infinity,
-              height: 81,
+              height: 81.h,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
@@ -45,7 +46,7 @@ class RecipeViewSteps extends StatelessWidget {
                     softWrap: true,
                   ),
                   SizedBox(
-                    width: 337,
+                    width: 337.w,
                     child: Text(
                       instructions[index].text,
                       style: TextStyle(

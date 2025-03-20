@@ -5,10 +5,11 @@ import 'package:recipe_app/core/Exceptions/auth_exception.dart';
 import 'package:recipe_app/core/interceptor.dart';
 import 'package:recipe_app/core/secure_storage.dart';
 import 'package:recipe_app/features/auth/data/models/sign_up_user_model.dart';
+import 'package:recipe_app/features/reviews/data/models/create_review_model.dart';
 
 class ApiClient {
   ApiClient() {
-    dio = Dio(BaseOptions(baseUrl: "http://10.10.3.202:8888/api/v1"));
+    dio = Dio(BaseOptions(baseUrl: "http://10.10.0.52:8888/api/v1", validateStatus: (value)=>true));
     dio.interceptors.add(AuthInterceptor());
   }
 
@@ -129,11 +130,35 @@ class ApiClient {
     List<dynamic> data = response.data;
     return data;
   }
-  
-  Future<bool> createReview({required Map<String,dynamic> review}) async{
-    var response=await dio.post("/reviews/create",data: review);
-    if(response.statusCode==200) return true;
-    else return false;
+
+  Future<bool> createReview({required CreateReviewModel review}) async {
+    final FormData formData = FormData.fromMap(await review.toJson());
+    var response = await dio.post("/reviews/create", data: formData);
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
+  Future<Map<String, dynamic>> fetchRecipeForReviews(int recipeId) async {
+    var response = await dio.get('/recipes/create-review/$recipeId');
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      return throw Exception(
+          "recipes/reviews/detail/$recipeId so'rovimiz xato ketti!");
+    }
+  }
+
+  Future<T> genericGetRequest<T>(String path,
+      {Map<String, dynamic>? queryParams}) async {
+    var response = await dio.get(path, queryParameters: queryParams);
+    if (response.statusCode == 200) {
+      return response.data as T;
+    } else {
+      throw DioException(
+          requestOptions: response.requestOptions, response: response);
+    }
+  }
 }

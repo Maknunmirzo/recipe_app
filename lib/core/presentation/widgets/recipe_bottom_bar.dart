@@ -19,10 +19,10 @@ class RecipeBottomNavigationBar extends StatelessWidget {
         Positioned(
           child: Container(
             width: double.infinity,
-            height: 120,
+            height: 70,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.black, Colors.transparent],
+                colors: [Colors.black.withValues(alpha: 0.5), Colors.transparent],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
               ),

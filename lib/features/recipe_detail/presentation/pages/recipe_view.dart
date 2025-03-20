@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_bottom_bar.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_app_bar.dart';
-import 'package:recipe_app/features/recipe_detail/data/models/recipe_view_steps.dart';
+import 'package:recipe_app/features/recipe_detail/presentation/widgets/recipe_view_steps.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/manager/recipe_view_model.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/widgets/recipe_image.dart';
 import 'package:recipe_app/features/recipe_detail/presentation/widgets/recipe_view_detail_item.dart';
@@ -23,7 +24,7 @@ class RecipeView extends StatelessWidget {
     return Scaffold(
       appBar: RecipeAppBar(
         backTap: () {
-          context.canPop();
+          context.pop();
         },
         action1Tap: () {},
         action2Tap: () {},
@@ -35,35 +36,34 @@ class RecipeView extends StatelessWidget {
       bottomNavigationBar: RecipeBottomNavigationBar(),
       body: (!vm.isLoading)
           ? ListView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            children: [
-              RecipeImage(),
-              SizedBox(
-                  height: 20
-              ),
-              RecipeViewChefProfile(),
-              SizedBox(
-                  height: 20
-              ),
-              RecipeViewDetailItem(
-                time: vm.recipe.time,
-                dec: vm.recipe.dec,
-              ),
-              SizedBox(
-                  height: 20
-              ),
-              RecipeViewIngredients(ingredients: vm.recipe.ingredients),
-              SizedBox(
-                  height: 20
-              ),
-              RecipeViewSteps(rawInstruction: vm.recipe.instructions),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        children: [
+          RecipeImage(),
+          SizedBox(
+              height: 20.h
+          ),
+          RecipeViewChefProfile(),
+          SizedBox(
+              height: 20.h
+          ),
+          RecipeViewDetailItem(
+            time: vm.recipe.time,
+            dec: vm.recipe.dec,
+          ),
+          SizedBox(
+              height: 20.h
+          ),
+          RecipeViewIngredients(ingredients: vm.recipe.ingredients),
+          SizedBox(
+              height: 20.h),
+          RecipeViewSteps(rawInstruction: vm.recipe.instructions),
 
-            ],
-          )
+        ],
+      )
           : Center(
         child: SizedBox(
-          height: 100,
-          width: 100,
+          height: 100.w,
+          width: 100.h,
           child: CircularProgressIndicator(),
         ),
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipe_app/core/presentation/widgets/recipe_elevated_button.dart';
+import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/core/utils/colors.dart';
 import 'package:recipe_app/features/category_detail/data/models/recipe_small_model.dart';
 import 'package:recipe_app/features/recipe_detail/data/models/user_small_model.dart';
@@ -76,7 +78,9 @@ class ReviewsPageRecipe extends StatelessWidget {
                   width: 126,
                   child: RecipeElevatedButton(
                     text: "Add Review",
-                    callback: () {},
+                    callback: () {
+                      context.push(Routes.createReviewsBuilder(recipe.id));
+                    },
                     size: Size(126, 24),
                     foregroundColor: AppColors.redPinkMain,
                     fontSize: 13,
