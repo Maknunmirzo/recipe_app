@@ -9,6 +9,7 @@ import 'package:recipe_app/core/routing/routes.dart';
 import 'package:recipe_app/features/profile/presentation/manager/chef_profile_view_model.dart';
 import 'package:recipe_app/features/profile/presentation/widgets/user_profile_container.dart';
 import 'package:recipe_app/features/profile/presentation/widgets/user_profile_photo.dart';
+import 'package:recipe_app/features/profile/presentation/widgets/user_recipes_category.dart';
 
 import '../../../../core/presentation/widgets/recipe_small.dart';
 import '../../../../core/utils/colors.dart';
@@ -35,12 +36,13 @@ class ChefProfileView extends StatelessWidget {
         action2Tap: () {},
         action1: "assets/svg/share.svg",
         action2: "assets/svg/three-dots.svg",
-        title: "@${!vm.loading ? vm.chef.username :"Chef_username"}",
+        title: "@${!vm.loading ? vm.chef.username : "Chef_username"}",
       ),
       body: (!vm.loading)
           ? DefaultTabController(
               length: 1,
               child: ListView(
+                clipBehavior: Clip.none,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 children: [
                   Row(
@@ -80,17 +82,13 @@ class ChefProfileView extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 6,
-                  ),
+                  SizedBox(height: 6),
                   UserProfileContainer(
                     recipesCount: vm.chef.recipesCount,
                     followingCount: vm.chef.followingCount,
                     followerCount: vm.chef.followerCount,
                   ),
-                  SizedBox(
-                    height: 8,
-                  ),
+                  SizedBox(height: 8),
                   TabBar(
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorColor: AppColors.redPinkMain,
@@ -105,22 +103,29 @@ class ChefProfileView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: vm.recipes.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                      childAspectRatio: 170.w / 226.h,
-                      crossAxisCount: 2,
-                    ),
-                    itemBuilder: (context, index) {
-                      return RecipeSmall(
-                        recipeSmallModel: vm.recipes[index],
-                      );
-                    },
-                  ),
+                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 800.h,
+                    child: ListView.separated(
+                      clipBehavior: Clip.none,
+                      itemCount: 4,
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 40,
+                      ),
+                      itemBuilder: (context, index) => UserRecipesCategory(
+                        id: 1,
+                        image: "https://s3-alpha-sig.figma.com/img/4da3/a1f9/1"
+                            "7ea214cd60e5b3e274372cafcb56b55?Expires=1743379200&Ke"
+                            "y-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ZXo68PiGzzNBW6"
+                            "O6fE8ts6ep~rGSGcC6~7w~Gxv8lj7pJvLn70DWd-CuBb8L59qDoUXaVnri"
+                            "sM1chz5qg2kbMgMBHU1S3fdr0-E~SF5B45-Jgk1wyVmR8tfMBLs7hWYX5HtBOc"
+                            "aa88xD9usGKNn9v1GfS8q4Tg6z5PvwXEiwdHw4tVTTwaUlLkUWJM7C~yJCBF"
+                            "QwvBtOnBg6rz85GEhH5dQlnysLumDgKYZyIb7rQ5mdw37lVGNPUE4OLgaZd2"
+                            "96gaBVN2ofK~mO7oc0LPAnoTsEzDBPU8b5atGNB8hiqa74qfg0NjEFcoIgv4H"
+                            "li8yn9E3ELcviIsOQYnQE8RMBtg__",
+                        title: "maknun bilan yasha",
+                      ),
+                    ),),
                 ],
               ),
             )
@@ -129,3 +134,7 @@ class ChefProfileView extends StatelessWidget {
     );
   }
 }
+
+
+
+
